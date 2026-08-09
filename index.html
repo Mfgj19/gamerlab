@@ -4,23 +4,39 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="GamerLab: tienda online de computadoras, componentes y periféricos gamer.">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
-    <title>Nexo Store | Inicio</title>
+
+    <title>GamerLab | Inicio</title>
 </head>
 
 <body class='d-flex flex-column min-vh-100' data-page='inicio'>
+    <header>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">N</span> Nexo Store</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span
+            <a class="navbar-brand" href="index.html" aria-label="Ir al inicio de GamerLab"><img
+                    src="assets/img/logo/logo.png" alt="Logo de GamerLab" class="navbar-logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Abrir o cerrar el menú principal"><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="carrito" href="carrito.html">
+                            Carrito <span class="badge rounded-pill bg-danger">0</span>
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                 </ul>
@@ -28,125 +44,256 @@
             </div>
         </div>
     </nav>
+    </header>
     <main class='flex-grow-1'>
         <section class="hero">
             <div class="container py-5">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <span class="badge rounded-pill text-bg-warning mb-3">Sprint 1 · Semanas 1 a 4</span>
-                        <h1 class="display-4 fw-bold">Tecnología útil, simple y cerca tuyo.</h1>
-                        <p class="lead text-secondary">Esta es la base común del proyecto. En el primer sprint deberán
-                            completar y personalizar únicamente la página de inicio.</p>
-                        <div class="d-flex gap-2 flex-wrap"><a class="btn btn-primary btn-lg"
-                                href="catalogo.html">Explorar productos</a><button class="btn btn-outline-dark btn-lg"
-                                id="btnProjectInfo">Ver alcance</button></div>
+                        <span class="badge rounded-pill text-bg-info mb-3">PC Gamer · Componentes · Periféricos</span>
+
+                        <h1 class="display-4 fw-bold">Construí la potencia que necesitás.</h1>
+
+                        <p class="lead text-secondary">
+                            Encontrá computadoras, componentes y periféricos para crear una experiencia gamer a tu
+                            medida.
+                        </p>
+
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a class="btn btn-primary btn-lg" href="catalogo.html">Explorar productos</a>
+
+                            <button class="btn btn-outline-dark btn-lg" id="btnProjectInfo">
+                                Conocer GamerLab
+                            </button>
+                        </div>
+
                         <div class="row g-3 mt-4">
-                            <div class="col-4">
-                                <div class="metric"><strong>HTML</strong><span>Semántico</span></div>
+                            <div class="col-12 col-sm-4">
+                                <div class="metric">
+                                    <strong>Equipos</strong>
+                                    <span>Alto rendimiento</span>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <div class="metric"><strong>CSS</strong><span>Responsive</span></div>
+
+                            <div class="col-12 col-sm-4">
+                                <div class="metric">
+                                    <strong>Componentes</strong>
+                                    <span>Potencia adaptable</span>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <div class="metric"><strong>Bootstrap</strong><span>Componentes</span></div>
+
+                            <div class="col-12 col-sm-4">
+                                <div class="metric">
+                                    <strong>Periféricos</strong>
+                                    <span>Control y precisión</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="hero-card">
-                            <div class="hero-card-header"><span class="dot"></span><span class="dot"></span><span
-                                    class="dot"></span></div>
-                            <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=1200&q=80"
-                                alt="Dispositivos tecnológicos">
-                            <div class="floating-card"><span>🚧 Componente a personalizar</span><strong>Producto
-                                    destacado</strong><small>Cambiar contenido e identidad visual.</small></div>
+                            <div class="hero-card-header">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+
+                            <img src="assets/img/hero/hero.png"
+                                alt="Computadora gamer, monitor y periféricos de GamerLab">
+
+                            <div class="floating-card">
+                                <span>🖥️ Experiencia GamerLab</span>
+                                <strong>Potencia para tu juego</strong>
+                                <small>Equipos y periféricos pensados para cada desafío.</small>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="container py-5">
-            <div class="section-heading">
-                <div><span class="eyebrow">Sprint 1</span>
-                    <h2 class="fw-bold">Productos destacados estáticos</h2>
-                </div><span class="badge text-bg-light border">Sin JavaScript</span>
-            </div>
-            <div class="student-task">
-                <div class="student-task-number">1</div>
-                <div>
-                    <h3 class="h5">Actividad</h3>
-                    <p class="mb-0">Construir entre tres y cuatro tarjetas con Bootstrap. En esta etapa no deben
-                        generarse dinámicamente.</p>
+        <section class="products-section py-5">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">Selección GamerLab</span>
+                        <h2 class="fw-bold">Productos destacados</h2>
+                    </div>
+                    <span class="badge text-bg-light border">Equipos y periféricos</span>
                 </div>
-            </div>
-            <div class="row g-4 mt-1">
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
+                <div class="row g-4 mt-1">
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/pc-gamer.png"
+                                alt="Computadora gamer con gabinete e iluminación RGB" class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Equipos</span>
+                                <h3 class="h5 mt-2">PC Gamer RGB</h3>
+
+                                <p class="text-secondary small">
+                                    Equipo de alto rendimiento con componentes preparados para juegos exigentes.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 1.490</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/laptop-gamer.png" alt="Notebook gamer con teclado iluminado"
+                                class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Equipos</span>
+                                <h3 class="h5 mt-2">Notebook Gamer</h3>
+
+                                <p class="text-secondary small">
+                                    Rendimiento portátil, pantalla amplia y teclado RGB para jugar donde quieras.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 1.250</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/teclado-gamer.png"
+                                alt="Teclado mecánico gamer con iluminación RGB" class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Periféricos</span>
+                                <h3 class="h5 mt-2">Teclado mecánico RGB</h3>
+
+                                <p class="text-secondary small">
+                                    Respuesta rápida, teclas precisas e iluminación configurable para cada partida.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 95</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/auriculares-gamer.png"
+                                alt="Auriculares gamer negros con iluminación azul y micrófono" class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Periféricos</span>
+                                <h3 class="h5 mt-2">Headset Gamer</h3>
+
+                                <p class="text-secondary small">
+                                    Audio inmersivo, almohadillas cómodas y micrófono para comunicarte con tu equipo.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 75</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/volante-gamer.png"
+                                alt="Volante gamer con base y tres pedales" class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Simulación</span>
+                                <h3 class="h5 mt-2">Volante Gamer</h3>
+
+                                <p class="text-secondary small">
+                                    Volante con controles integrados y pedalera para una conducción más realista.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 320</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="placeholder-product">
+                            <img src="assets/img/productos/silla-gamer.png" alt="Silla gamer negra con detalles rojos"
+                                class="product-image">
+
+                            <div class="p-3">
+                                <span class="eyebrow">Mobiliario</span>
+                                <h3 class="h5 mt-2">Silla Gamer</h3>
+
+                                <p class="text-secondary small">
+                                    Diseño ergonómico con apoyabrazos y soporte para largas sesiones de juego.
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>USD 275</strong>
+                                    <a class="btn btn-primary btn-sm" href="producto.html">Ver producto</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
                 </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-            </div>
         </section>
         <section class="benefits py-5">
             <div class="container">
                 <div class="row g-4 text-center">
+
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>🎨</span>
-                            <h3>Identidad visual</h3>
-                            <p>Colores, tipografías y logotipo.</p>
+                        <div class="benefit-card">
+                            <img src="assets/img/beneficios/equipos-seleccionados.png" alt="Equipo gamer seleccionado"
+                                class="benefit-icon">
+
+                            <h3>Equipos seleccionados</h3>
+
+                            <p>
+                                Computadoras, componentes y periféricos pensados para diferentes necesidades.
+                            </p>
                         </div>
                     </div>
+
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>📱</span>
-                            <h3>Responsive</h3>
-                            <p>Escritorio, tablet y móvil.</p>
+                        <div class="benefit-card">
+                            <img src="assets/img/beneficios/compatibilidad.png"
+                                alt="Componentes de computadora compatibles" class="benefit-icon">
+
+                            <h3>Compatibilidad</h3>
+
+                            <p>
+                                Productos orientados a construir configuraciones equilibradas y funcionales.
+                            </p>
                         </div>
                     </div>
+
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>♿</span>
-                            <h3>Accesibilidad</h3>
-                            <p>Semántica, contraste y textos alternativos.</p>
+                        <div class="benefit-card">
+                            <img src="assets/img/beneficios/alto-rendimiento.png"
+                                alt="Procesador representando alto rendimiento" class="benefit-icon">
+
+                            <h3>Alto rendimiento</h3>
+
+                            <p>
+                                Tecnología para jugar, estudiar, crear contenido y trabajar con mayor potencia.
+                            </p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -154,8 +301,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title fs-5">Roadmap</h2><button class="btn-close"
-                            data-bs-dismiss="modal"></button>
+                        <h2 class="modal-title fs-5">Sobre GamerLab</h2>
+                        </h2><button class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <p>El proyecto se desarrollará progresivamente en cuatro sprints.</p>
@@ -181,17 +328,49 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
     </main>
     <footer class="footer py-4 mt-auto">
-        <div class="container d-flex justify-content-between flex-wrap gap-2">
-            <span>© 2026 Nexo Store · Proyecto integrador</span><span>Versión inicial para estudiantes</span>
+        <div class="container">
+
+            <div class="row g-4 align-items-">
+
+                <div class="col-md-4">
+                    <h3 class="h5">GamerLab</h3>
+                    <p class="small mb-0">
+                        Equipos, componentes y periféricos para construir la potencia que necesitás.
+                    </p>
+                </div>
+
+                <div class="col-md-4 text-md-center">
+                    <h3 class="h6">Enlaces</h3>
+                    <ul class="footer-links list-unstyled mb-0">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="carrito.html">Carrito</a></li>
+                        <li><a href="perfil.html">Mi perfil</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 text-md-end">
+                    <h3 class="h6">Contacto</h3>
+                    <p class="small mb-1">contacto@gamerlab.com</p>
+                    <p class="small mb-0">Rivera, Uruguay</p>
+                </div>
+
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="d-flex justify-content-between flex-wrap gap-2 small">
+                <span>© 2026 GamerLab</span>
+                <span>Proyecto académico de Desarrollo Web</span>
+            </div>
+
         </div>
     </footer>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="appToast" class="toast">
-            <div class="toast-header"><strong class="me-auto">Nexo Store</strong><button class="btn-close"
+            <div class="toast-header"><strong class="me-auto">GamerLab</strong><button class="btn-close"
                     data-bs-dismiss="toast"></button></div>
             <div class="toast-body" id="toastMessage"></div>
         </div>

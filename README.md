@@ -31,12 +31,13 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 - HTML5
 - CSS3
 - Bootstrap
+- JavaScript
 - Git
 - GitHub
 
 ## Estructura general del proyecto
 
-
+gamerlab/
 ├── index.html
 ├── catalogo.html
 ├── producto.html
@@ -46,12 +47,13 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 ├── css/
 │   └── styles.css
 ├── js/
-│   ├── modules/
-│   └── pages/
+│   └── base.js
 ├── assets/
-│   ├── img/
-│   ├── icons/
-│   └── logo/
+│   └── img/
+│       ├── hero/
+│       ├── logo/
+│       ├── products/
+│       └── beneficios/
 ├── README.md
 └── .gitignore
 
@@ -65,15 +67,20 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 ## Funcionalidades desarrolladas en el Sprint 1
 
 - Identidad visual propia.
-- Página de inicio personalizada.
+- Página de inicio completamente personalizada.
 - Barra de navegación responsive.
-- Sección principal o hero.
-- Productos destacados estáticos.
-- Sección de beneficios.
-- Pie de página.
+- Logotipo enlazado a la página de inicio.
+- Indicador visual estático del carrito.
+- Botón de inicio de sesión con aviso de funcionalidad correspondiente al Sprint 3.
+- Sección principal o hero personalizada.
+- Seis productos destacados escritos directamente en HTML.
+- Tarjetas de productos adaptables y coherentes con la identidad visual.
+- Sección de beneficios con imágenes, títulos y descripciones.
+- Pie de página con enlaces, información de contacto y aclaración académica.
 - Navegación entre las páginas principales.
 - Diseño adaptable a dispositivos móviles, tablets y equipos de escritorio.
 - Condiciones básicas de accesibilidad.
+- Uso de HTML semántico.
 - Páginas futuras enlazadas y señaladas como funcionalidades en desarrollo.
 
 ## Funcionalidades pendientes
@@ -114,9 +121,16 @@ La identidad visual de GamerLab busca transmitir precisión, potencia y experime
 
 > Construí la potencia que necesitás.
 
+## Diseño responsive
+
+La interfaz fue revisada en los siguientes tamaños aproximados:
+Teléfono: 375 px
+Tablet: 768 px
+Escritorio: 1366 px
+
 ## Estado del proyecto
 
-Sprint 1 en desarrollo.
+Sprint 1 finalizado.
 
 ## Enlace al repositorio
 
