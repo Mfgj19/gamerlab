@@ -36,7 +36,7 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 - GitHub
 
 ## Estructura general del proyecto
-
+```text
 gamerlab/
 ├── index.html
 ├── catalogo.html
@@ -56,7 +56,7 @@ gamerlab/
 │       └── beneficios/
 ├── README.md
 └── .gitignore
-
+```
 ## Instrucciones de ejecución
 
 1. Descargar o clonar el repositorio.
