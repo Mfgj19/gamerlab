@@ -36,6 +36,8 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 - GitHub
 
 ## Estructura general del proyecto
+
+
 ```text
 gamerlab/
 ├── index.html
@@ -52,7 +54,7 @@ gamerlab/
 │   └── img/
 │       ├── hero/
 │       ├── logo/
-│       ├── products/
+│       ├── productos/
 │       └── beneficios/
 ├── README.md
 └── .gitignore
@@ -124,9 +126,9 @@ La identidad visual de GamerLab busca transmitir precisión, potencia y experime
 ## Diseño responsive
 
 La interfaz fue revisada en los siguientes tamaños aproximados:
-Teléfono: 375 px
-Tablet: 768 px
-Escritorio: 1366 px
+- Teléfono: 375 px
+- Tablet: 768 px
+- Escritorio: 1366 px
 
 ## Estado del proyecto
 
