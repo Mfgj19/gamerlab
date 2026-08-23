@@ -49,7 +49,9 @@ gamerlab/
 ├── css/
 │   └── styles.css
 ├── js/
-│   └── base.js
+│   ├── base.js
+│   ├── productos.js
+│   └── catalogo.js
 ├── assets/
 │   └── img/
 │       ├── hero/
@@ -85,13 +87,28 @@ gamerlab/
 - Uso de HTML semántico.
 - Páginas futuras enlazadas y señaladas como funcionalidades en desarrollo.
 
-## Funcionalidades pendientes
+## Sprint 2
 
-- Catálogo dinámico.
-- Búsqueda, filtros y ordenamiento.
+### Avance al 23/08 - Productos y catálogo dinámico
+
+- Se creó un arreglo de productos en JavaScript.
+- Cada producto está representado mediante un objeto.
+- Los productos incluyen identificador, nombre, descripción, categoría, precio, stock e imagen.
+- El catálogo se genera dinámicamente desde JavaScript.
+- Las tarjetas se insertan en `catalogo.html` mediante manipulación del DOM.
+- Se utiliza una función `mostrarProductos(productos)` para recorrer y mostrar el catálogo.
+- La lógica del catálogo se organizó en los archivos `productos.js` y `catalogo.js`.
+
+### Pendiente para las próximas etapas del Sprint 2
+
+- Búsqueda por nombre.
+- Filtros por categoría.
 - Detalle dinámico de productos.
 - Carrito de compras.
 - Persistencia mediante LocalStorage.
+
+## Funcionalidades pendientes
+
 - Registro e inicio de sesión.
 - Firebase Authentication.
 - Cloud Firestore.
@@ -133,6 +150,7 @@ La interfaz fue revisada en los siguientes tamaños aproximados:
 ## Estado del proyecto
 
 Sprint 1 finalizado.
+Sprint 2 en desarrollo. Avance al 23/08 completado: productos y catálogo dinámico.
 
 ## Enlace al repositorio
 
