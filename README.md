@@ -99,10 +99,18 @@ gamerlab/
 - Se utiliza una función `mostrarProductos(productos)` para recorrer y mostrar el catálogo.
 - La lógica del catálogo se organizó en los archivos `productos.js` y `catalogo.js`.
 
+### Avance al 30/08 - Búsqueda, filtros y eventos
+
+- Se incorporó un campo de búsqueda de productos por nombre.
+- Se agregó un selector para filtrar los productos por categoría.
+- Se combinaron la búsqueda por nombre y el filtro por categoría.
+- Se utilizaron eventos `input` y `change` para actualizar el catálogo.
+- Los productos se filtran dinámicamente mediante JavaScript.
+- Se muestra un mensaje cuando no existen productos que coincidan con la búsqueda y el filtro seleccionados.
+- Al limpiar la búsqueda y seleccionar todas las categorías, se vuelve a mostrar el catálogo completo.
+
 ### Pendiente para las próximas etapas del Sprint 2
 
-- Búsqueda por nombre.
-- Filtros por categoría.
 - Detalle dinámico de productos.
 - Carrito de compras.
 - Persistencia mediante LocalStorage.
@@ -149,8 +157,14 @@ La interfaz fue revisada en los siguientes tamaños aproximados:
 
 ## Estado del proyecto
 
+## Estado del proyecto
+
 Sprint 1 finalizado.
-Sprint 2 en desarrollo. Avance al 23/08 completado: productos y catálogo dinámico.
+
+Sprint 2 en desarrollo.
+
+- Avance al 23/08 completado: productos y catálogo dinámico.
+- Avance al 30/08 completado: búsqueda por nombre, filtros por categoría y eventos.
 
 ## Enlace al repositorio
 
