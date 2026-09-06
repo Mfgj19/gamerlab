@@ -51,7 +51,8 @@ gamerlab/
 ├── js/
 │   ├── base.js
 │   ├── productos.js
-│   └── catalogo.js
+│   ├── catalogo.js
+│   └── producto.js
 ├── assets/
 │   └── img/
 │       ├── hero/
@@ -109,9 +110,19 @@ gamerlab/
 - Se muestra un mensaje cuando no existen productos que coincidan con la búsqueda y el filtro seleccionados.
 - Al limpiar la búsqueda y seleccionar todas las categorías, se vuelve a mostrar el catálogo completo.
 
+### Avance al 06/09 - Detalle dinámico del producto
+
+- Se incorporó la navegación desde las tarjetas del catálogo hacia `producto.html`.
+- Cada producto envía su identificador mediante la URL.
+- Se utiliza `URLSearchParams` para obtener el identificador del producto desde la URL.
+- Se utiliza `find()` para buscar el producto correspondiente dentro del arreglo.
+- Se creó `producto.js` para manejar la lógica del detalle del producto.
+- La página `producto.html` muestra dinámicamente la imagen, categoría, nombre, descripción, precio y stock del producto seleccionado.
+- Se utiliza una única página `producto.html` para mostrar los diferentes productos.
+- Se muestra un mensaje cuando el identificador recibido no corresponde a ningún producto existente.
+
 ### Pendiente para las próximas etapas del Sprint 2
 
-- Detalle dinámico de productos.
 - Carrito de compras.
 - Persistencia mediante LocalStorage.
 
@@ -155,7 +166,6 @@ La interfaz fue revisada en los siguientes tamaños aproximados:
 - Tablet: 768 px
 - Escritorio: 1366 px
 
-## Estado del proyecto
 
 ## Estado del proyecto
 
@@ -165,6 +175,7 @@ Sprint 2 en desarrollo.
 
 - Avance al 23/08 completado: productos y catálogo dinámico.
 - Avance al 30/08 completado: búsqueda por nombre, filtros por categoría y eventos.
+- Avance al 06/09 completado: detalle dinámico del producto, identificador mediante URL, búsqueda con `find()` y visualización de la información desde JavaScript.
 
 ## Enlace al repositorio
 

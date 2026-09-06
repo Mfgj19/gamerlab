@@ -47,9 +47,11 @@ function mostrarProductos(productos) {
                             <strong>Stock:</strong> ${producto.stock} unidades
                         </p>
 
-                        <button class="btn btn-primary btn-sm" type="button">
-                            Ver producto
-                        </button>
+                        <a href="producto.html?id=${producto.id}"
+                        class="btn btn-primary btn-sm"
+                        >
+                        Ver producto
+                        </a>
 
                     </div>
 
