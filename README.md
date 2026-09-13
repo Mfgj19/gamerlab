@@ -32,6 +32,7 @@ Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y per
 - CSS3
 - Bootstrap
 - JavaScript
+- LocalStorage
 - Git
 - GitHub
 
@@ -50,9 +51,10 @@ gamerlab/
 │   └── styles.css
 ├── js/
 │   ├── base.js
-│   ├── productos.js
+│   ├── carrito.js
 │   ├── catalogo.js
-│   └── producto.js
+│   ├── producto.js
+│   └── productos.js
 ├── assets/
 │   └── img/
 │       ├── hero/
@@ -121,10 +123,24 @@ gamerlab/
 - Se utiliza una única página `producto.html` para mostrar los diferentes productos.
 - Se muestra un mensaje cuando el identificador recibido no corresponde a ningún producto existente.
 
-### Pendiente para las próximas etapas del Sprint 2
+### Avance al 13/09 - Carrito y LocalStorage
 
-- Carrito de compras.
-- Persistencia mediante LocalStorage.
+- Se incorporó la funcionalidad para agregar productos al carrito desde el catálogo y desde el detalle del producto.
+- El carrito permite aumentar y disminuir las cantidades de los productos.
+- Se controla que la cantidad seleccionada no supere el stock disponible.
+- Se pueden eliminar productos del carrito.
+- Se calculan dinámicamente los subtotales de cada producto y el total de la compra.
+- El carrito se conserva al recargar la página mediante LocalStorage.
+- En LocalStorage se almacena el identificador del producto y la cantidad seleccionada.
+- Se muestra un mensaje cuando el carrito está vacío.
+- La lógica del carrito se organizó en el archivo `carrito.js`.
+
+### Funcionalidades opcionales incorporadas
+
+- Se agregó la posibilidad de ordenar los productos por precio de menor a mayor y de mayor a menor.
+- Se agregó la posibilidad de ordenar los productos por nombre de A-Z y de Z-A.
+- El ordenamiento puede combinarse con la búsqueda por nombre y el filtro por categoría.
+- Se muestra dinámicamente la cantidad de productos encontrados.
 
 ## Funcionalidades pendientes
 
@@ -171,11 +187,13 @@ La interfaz fue revisada en los siguientes tamaños aproximados:
 
 Sprint 1 finalizado.
 
-Sprint 2 en desarrollo.
+Sprint 2 finalizado.
 
 - Avance al 23/08 completado: productos y catálogo dinámico.
 - Avance al 30/08 completado: búsqueda por nombre, filtros por categoría y eventos.
 - Avance al 06/09 completado: detalle dinámico del producto, identificador mediante URL, búsqueda con `find()` y visualización de la información desde JavaScript.
+- Avance al 13/09 completado: carrito de compras, control de stock, cálculo de subtotales y total y persistencia mediante LocalStorage.
+- Funcionalidades opcionales incorporadas: ordenamiento de productos y cantidad de resultados encontrados.
 
 ## Enlace al repositorio
 

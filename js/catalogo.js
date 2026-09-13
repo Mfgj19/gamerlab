@@ -52,17 +52,33 @@ function mostrarProductos(productos) {
                         >
                         Ver producto
                         </a>
-
+                        <button
+                            class="btn btn-outline-primary btn-sm agregar-carrito"
+                            data-id="${producto.id}"
+                            type="button"
+                        >
+                            Agregar al carrito
+                        </button>
                     </div>
 
                 </article>
             </div>
         `;
     });
+
+    document.querySelectorAll(".agregar-carrito").forEach((boton) => {
+
+        boton.addEventListener("click", () => {
+
+            agregarAlCarrito(boton.dataset.id);
+        });
+    });
 }
 
 const buscador = document.querySelector("#buscarProducto");
 const selectorCategoria = document.querySelector("#filtroCategoria");
+const selectorOrden = document.querySelector("#ordenProductos");
+const cantidadResultados = document.querySelector("#cantidadResultados");
 
 function aplicarFiltros() {
 
@@ -80,11 +96,42 @@ function aplicarFiltros() {
         );
 
     }
+    const ordenSeleccionado = selectorOrden.value;
 
+    if (ordenSeleccionado === "Precio menor") {
+
+        productosFiltrados.sort((a, b) =>
+            a.precio - b.precio
+        );
+
+    } else if (ordenSeleccionado === "Precio mayor") {
+
+        productosFiltrados.sort((a, b) =>
+            b.precio - a.precio
+        );
+
+    } else if (ordenSeleccionado === "Nombre AZ") {
+
+        productosFiltrados.sort((a, b) =>
+            a.nombre.localeCompare(b.nombre)
+        );
+
+    } else if (ordenSeleccionado === "Nombre ZA") {
+
+        productosFiltrados.sort((a, b) =>
+            b.nombre.localeCompare(a.nombre)
+        );
+
+    }
+    cantidadResultados.textContent =
+    `${productosFiltrados.length} productos encontrados`;
     mostrarProductos(productosFiltrados);
 }
 
 buscador.addEventListener("input", aplicarFiltros);
 selectorCategoria.addEventListener("change", aplicarFiltros);
+selectorOrden.addEventListener("change", aplicarFiltros);
 
+cantidadResultados.textContent =
+    `${productos.length} productos encontrados`;
 mostrarProductos(productos);

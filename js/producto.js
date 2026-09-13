@@ -38,11 +38,26 @@ if (producto) {
                 <p>
                     <strong>Stock:</strong> ${producto.stock} unidades
                 </p>
+               
+                <button
+                    class="btn btn-primary"
+                    id="agregarDetalle"
+                    type="button"
+                >
+                    Agregar al carrito
+                </button>
 
             </div>
 
         </div>
     `;
+    const botonAgregar = document.querySelector("#agregarDetalle");
+
+    botonAgregar.addEventListener("click", () => {
+
+        agregarAlCarrito(producto.id);
+
+    });
 } else {
 
     contenedor.innerHTML = `
