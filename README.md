@@ -167,9 +167,6 @@ gamerlab/
 
 ## Funcionalidades pendientes
 
-- Registro e inicio de sesión.
-- Firebase Authentication.
-- Cloud Firestore.
 - Pedidos.
 - Panel administrativo.
 - Operaciones CRUD.
@@ -212,12 +209,10 @@ Sprint 1 finalizado.
 
 Sprint 2 finalizado.
 
-- Avance al 23/08 completado: productos y catálogo dinámico.
-- Avance al 30/08 completado: búsqueda por nombre, filtros por categoría y eventos.
-- Avance al 06/09 completado: detalle dinámico del producto, identificador mediante URL, búsqueda con `find()` y visualización de la información desde JavaScript.
-- Avance al 13/09 completado: carrito de compras, control de stock, cálculo de subtotales y total y persistencia mediante LocalStorage.
-- Funcionalidades opcionales completadas: ordenamiento por nombre y precio, cantidad de resultados, carrusel de imágenes, características técnicas, productos relacionados, valoraciones, comentarios, promedio de valoraciones, mensajes mediante toast y costo de envío simulado.
-- Mejoras de experiencia de usuario incorporadas a partir de la devolución docente: limpieza de filtros, navegación desde productos destacados, acceso al detalle desde el carrito, opción para seguir comprando y contador dinámico del carrito.
+Sprint 3 en desarrollo.
+
+- Avance al 20/09 completado: configuración de Firebase, registro e inicio de sesión con correo y contraseña, persistencia y cierre de sesión, datos de usuario en Firestore, navbar según el estado de autenticación y perfil protegido.
+- La configuración de Firebase se encuentra en `js/firebase/config.js` y la autenticación en `js/firebase/auth.js`.
 
 ## Enlace al repositorio
 
