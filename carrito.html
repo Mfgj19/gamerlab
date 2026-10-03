@@ -21,8 +21,11 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="carrito" href="carrito.html">
+                            Carrito <span class="badge rounded-pill bg-danger" id="contadorCarrito">0</span>
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                 </ul>
@@ -46,9 +49,29 @@
             </div>
 
             <div class="mt-4 text-end">
+
+                <p class="mb-1">
+                    Subtotal de productos: USD
+                    <span id="subtotalCarrito">0</span>
+                </p>
+
+                <p class="mb-1">
+                    Costo de envío:
+                    <span id="costoEnvio">USD 0</span>
+                </p>
+
+                <p class="text-secondary small">
+                    Envío gratis en compras de USD 500 o más.
+                </p>
+
                 <h2 class="h4">
                     Total: USD <span id="totalCarrito">0</span>
                 </h2>
+
+                <a href="catalogo.html" class="btn btn-outline-primary mt-2">
+                    Seguir comprando
+                </a>
+
             </div>
 
         </div>

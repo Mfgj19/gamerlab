@@ -79,6 +79,7 @@ const buscador = document.querySelector("#buscarProducto");
 const selectorCategoria = document.querySelector("#filtroCategoria");
 const selectorOrden = document.querySelector("#ordenProductos");
 const cantidadResultados = document.querySelector("#cantidadResultados");
+const botonLimpiar = document.querySelector("#limpiarFiltros");
 
 function aplicarFiltros() {
 
@@ -128,9 +129,19 @@ function aplicarFiltros() {
     mostrarProductos(productosFiltrados);
 }
 
+function limpiarFiltros() {
+
+    buscador.value = "";
+    selectorCategoria.value = "Todas";
+    selectorOrden.value = "Sin ordenar";
+
+    aplicarFiltros();
+}
+
 buscador.addEventListener("input", aplicarFiltros);
 selectorCategoria.addEventListener("change", aplicarFiltros);
 selectorOrden.addEventListener("change", aplicarFiltros);
+botonLimpiar.addEventListener("click", limpiarFiltros);
 
 cantidadResultados.textContent =
     `${productos.length} productos encontrados`;

@@ -77,7 +77,7 @@ gamerlab/
 - Página de inicio completamente personalizada.
 - Barra de navegación responsive.
 - Logotipo enlazado a la página de inicio.
-- Indicador visual estático del carrito.
+- Funcionalidades opcionales incorporadas: ordenamiento de productos y cantidad de resultados encontrados.
 - Botón de inicio de sesión con aviso de funcionalidad correspondiente al Sprint 3.
 - Sección principal o hero personalizada.
 - Seis productos destacados escritos directamente en HTML.
@@ -141,6 +141,29 @@ gamerlab/
 - Se agregó la posibilidad de ordenar los productos por nombre de A-Z y de Z-A.
 - El ordenamiento puede combinarse con la búsqueda por nombre y el filtro por categoría.
 - Se muestra dinámicamente la cantidad de productos encontrados.
+- Se incorporó un botón para limpiar la búsqueda, los filtros y el ordenamiento del catálogo.
+- Se incorporó una galería de imágenes mediante un carrusel dinámico en el detalle de cada producto.
+- Cada producto cuenta con tres imágenes que permiten visualizarlo desde diferentes ángulos y observar distintos detalles.
+- Se incorporaron características técnicas adicionales para cada producto.
+- Se agregó una sección de productos relacionados según la categoría del producto seleccionado.
+- Se incorporó un sistema de valoraciones de una a cinco estrellas.
+- Se muestra el promedio y la cantidad de valoraciones recibidas por cada producto.
+- Se incorporó un sistema de comentarios para cada producto.
+- Las valoraciones y los comentarios se conservan mediante LocalStorage.
+- Se incorporaron mensajes mediante toast para brindar confirmación visual al agregar productos al carrito o cuando se alcanza el stock disponible.
+- Se agregó un costo de envío simulado al resumen del carrito.
+- Las compras de USD 500 o más cuentan con envío gratuito dentro de la simulación.
+
+### Mejoras realizadas a partir de la devolución del Sprint 2
+
+- Se corrigió el acceso al detalle de los productos destacados desde la página de inicio.
+- Se eliminó la opción "Producto" del menú de navegación, ya que el detalle se accede desde los productos correspondientes.
+- Se agregó una opción para limpiar los filtros del catálogo.
+- Se incorporaron mensajes visuales al agregar productos al carrito y al alcanzar el stock disponible.
+- Se agregó acceso al detalle de cada producto directamente desde el carrito.
+- Se incorporó la opción "Seguir comprando" desde el carrito.
+- Se agregó un contador dinámico de productos en el carrito dentro de la barra de navegación.
+- El contador del carrito se mantiene actualizado al agregar, aumentar, disminuir o eliminar productos y conserva su valor al navegar entre las distintas páginas.
 
 ## Funcionalidades pendientes
 
@@ -193,7 +216,8 @@ Sprint 2 finalizado.
 - Avance al 30/08 completado: búsqueda por nombre, filtros por categoría y eventos.
 - Avance al 06/09 completado: detalle dinámico del producto, identificador mediante URL, búsqueda con `find()` y visualización de la información desde JavaScript.
 - Avance al 13/09 completado: carrito de compras, control de stock, cálculo de subtotales y total y persistencia mediante LocalStorage.
-- Funcionalidades opcionales incorporadas: ordenamiento de productos y cantidad de resultados encontrados.
+- Funcionalidades opcionales completadas: ordenamiento por nombre y precio, cantidad de resultados, carrusel de imágenes, características técnicas, productos relacionados, valoraciones, comentarios, promedio de valoraciones, mensajes mediante toast y costo de envío simulado.
+- Mejoras de experiencia de usuario incorporadas a partir de la devolución docente: limpieza de filtros, navegación desde productos destacados, acceso al detalle desde el carrito, opción para seguir comprando y contador dinámico del carrito.
 
 ## Enlace al repositorio
 

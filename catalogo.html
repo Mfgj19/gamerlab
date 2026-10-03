@@ -21,8 +21,11 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="carrito" href="carrito.html">
+                            Carrito <span class="badge rounded-pill bg-danger" id="contadorCarrito">0</span>
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                 </ul>
@@ -73,8 +76,13 @@
                         </div>
 
                     </div>
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-outline-primary" id="limpiarFiltros">
+                            Limpiar filtros
+                        </button>
+                    </div>
                 </div>
-                
+
                 <p class="text-secondary mb-3" id="cantidadResultados"></p>
                 <div class="row g-4" id="catalogoProductos">
                     <!-- Las tarjetas se generarán desde JavaScript -->

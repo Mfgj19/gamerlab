@@ -21,8 +21,11 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="carrito" href="carrito.html">
+                            Carrito <span class="badge rounded-pill bg-danger" id="contadorCarrito">0</span>
+                        </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                     <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                 </ul>
@@ -36,6 +39,53 @@
             <div id="detalleProducto">
                 <!-- El detalle del producto se mostrará desde JavaScript -->
             </div>
+            <section class="mt-5" id="seccionValoraciones">
+                <h2 class="h4 mb-3">Valoraciones</h2>
+
+                <p class="text-secondary">
+                    ¿Qué te pareció este producto?
+                </p>
+
+                <div id="estrellasValoracion" class="mb-3">
+                    <button type="button" class="btn btn-outline-warning estrella" data-valor="1">★</button>
+                    <button type="button" class="btn btn-outline-warning estrella" data-valor="2">★</button>
+                    <button type="button" class="btn btn-outline-warning estrella" data-valor="3">★</button>
+                    <button type="button" class="btn btn-outline-warning estrella" data-valor="4">★</button>
+                    <button type="button" class="btn btn-outline-warning estrella" data-valor="5">★</button>
+                </div>
+
+                <p class="text-secondary" id="resumenValoraciones">
+                    Este producto todavía no tiene valoraciones.
+                </p>
+            </section>
+            <section class="mt-5" id="seccionRelacionados">
+                <h2 class="h4 mb-4">Productos relacionados</h2>
+
+                <div class="row g-4" id="productosRelacionados">
+                    <!-- Los productos relacionados se mostrarán desde JavaScript -->
+                </div>
+            </section>
+
+            <section class="mt-5" id="seccionComentarios">
+                <h2 class="h4 mb-3">Comentarios</h2>
+
+                <div class="mb-3">
+                    <label for="comentarioProducto" class="form-label">
+                        Dejá tu opinión
+                    </label>
+
+                    <textarea class="form-control" id="comentarioProducto" rows="3"
+                        placeholder="Escribí tu comentario..."></textarea>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="publicarComentario">
+                    Publicar comentario
+                </button>
+
+                <div class="mt-4" id="listaComentarios">
+                    <!-- Los comentarios se mostrarán desde JavaScript -->
+                </div>
+            </section>
 
         </div>
     </main>
