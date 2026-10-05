@@ -35,9 +35,14 @@ function agregarAlCarrito(idProducto) {
 
     const carrito = obtenerCarrito();
 
-    const producto = productos.find(
+    const producto = window.productos.find(
         producto => producto.id === idProducto
     );
+
+    if (!producto || !producto.disponible || producto.stock <= 0) {
+        mostrarMensaje("El producto no está disponible.");
+        return;
+    }
 
     const item = carrito.find(
         item => item.idProducto === idProducto
@@ -81,12 +86,20 @@ function aumentarCantidad(idProducto) {
         item => item.idProducto === idProducto
     );
 
-    const producto = productos.find(
+    const producto = window.productos.find(
         producto => producto.id === idProducto
     );
 
+    if (!producto || !producto.disponible || producto.stock <= 0) {
+        mostrarMensaje("El producto no está disponible.");
+        return;
+    }
+
     if (item.cantidad < producto.stock) {
         item.cantidad++;
+    } else {
+        mostrarMensaje("Alcanzaste el límite de stock disponible para este producto.");
+        return;
     }
 
     guardarCarrito(carrito);
@@ -151,9 +164,13 @@ function calcularTotal() {
 
     return carrito.reduce((total, item) => {
 
-        const producto = productos.find(
+        const producto = window.productos.find(
             producto => producto.id === item.idProducto
         );
+
+        if (!producto) {
+            return total;
+        }
 
         return total + calcularSubtotal(
             producto,
@@ -208,9 +225,13 @@ function mostrarCarrito() {
 
     carrito.forEach((item) => {
 
-        const producto = productos.find(
+        const producto = window.productos.find(
             producto => producto.id === item.idProducto
         );
+
+        if (!producto) {
+            return;
+        }
 
         const subtotal = calcularSubtotal(
             producto,
@@ -311,7 +332,18 @@ function mostrarCarrito() {
     totalCarrito.textContent = totalFinal;
 }
 
-if (document.querySelector("#carrito")) {
+actualizarContadorCarrito();
+
+window.addEventListener("productosCargados", (evento) => {
+    if (evento.detail.error) {
+        mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
+    }
+
+    if (document.querySelector("#carrito")) {
+        mostrarCarrito();
+    }
+});
+
+if (window.estadoProductos && document.querySelector("#carrito")) {
     mostrarCarrito();
 }
-actualizarContadorCarrito();

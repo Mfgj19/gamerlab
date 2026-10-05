@@ -213,6 +213,8 @@ Sprint 3 en desarrollo.
 
 - Avance al 20/09 completado: configuración de Firebase, registro e inicio de sesión con correo y contraseña, persistencia y cierre de sesión, datos de usuario en Firestore, navbar según el estado de autenticación y perfil protegido.
 - La configuración de Firebase se encuentra en `js/firebase/config.js` y la autenticación en `js/firebase/auth.js`.
+- Avance al 04/10 completado: colección `productos` en Firestore, catálogo y detalle obtenidos desde la base de datos, búsqueda, filtros, ordenamiento y validación de disponibilidad y stock antes de agregar al carrito.
+- Si la consulta de productos falla, la aplicación informa el problema y utiliza el catálogo local como respaldo.
 
 ## Enlace al repositorio
 

@@ -56,8 +56,9 @@ function mostrarProductos(productos) {
                             class="btn btn-outline-primary btn-sm agregar-carrito"
                             data-id="${producto.id}"
                             type="button"
+                            ${!producto.disponible || producto.stock <= 0 ? "disabled" : ""}
                         >
-                            Agregar al carrito
+                            ${producto.disponible && producto.stock > 0 ? "Agregar al carrito" : "Sin stock"}
                         </button>
                     </div>
 
@@ -86,7 +87,7 @@ function aplicarFiltros() {
     const textoBusqueda = buscador.value.toLowerCase();
     const categoriaSeleccionada = selectorCategoria.value;
 
-    let productosFiltrados = productos.filter((producto) =>
+    let productosFiltrados = window.productos.filter((producto) =>
         producto.nombre.toLowerCase().includes(textoBusqueda)
     );
 
@@ -124,8 +125,9 @@ function aplicarFiltros() {
         );
 
     }
-    cantidadResultados.textContent =
-    `${productosFiltrados.length} productos encontrados`;
+    cantidadResultados.textContent = productosFiltrados.length === 1
+        ? "1 producto encontrado"
+        : `${productosFiltrados.length} productos encontrados`;
     mostrarProductos(productosFiltrados);
 }
 
@@ -143,6 +145,22 @@ selectorCategoria.addEventListener("change", aplicarFiltros);
 selectorOrden.addEventListener("change", aplicarFiltros);
 botonLimpiar.addEventListener("click", limpiarFiltros);
 
-cantidadResultados.textContent =
-    `${productos.length} productos encontrados`;
-mostrarProductos(productos);
+function iniciarCatalogo(evento) {
+    if (evento.detail.error) {
+        mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
+    }
+
+    cantidadResultados.textContent = window.productos.length === 1
+        ? "1 producto encontrado"
+        : `${window.productos.length} productos encontrados`;
+    mostrarProductos(window.productos);
+}
+
+
+cantidadResultados.textContent = "Cargando productos...";
+
+window.addEventListener("productosCargados", iniciarCatalogo);
+
+if (window.estadoProductos) {
+    iniciarCatalogo({ detail: window.estadoProductos });
+}

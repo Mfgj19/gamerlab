@@ -1,8 +1,13 @@
+function iniciarDetalleProducto(evento) {
+if (evento.detail.error) {
+    mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
+}
+
 const parametros = new URLSearchParams(window.location.search);
 
 const id = parametros.get("id");
 
-const producto = productos.find((producto) =>
+const producto = window.productos.find((producto) =>
     producto.id == id
 );
 
@@ -87,8 +92,9 @@ if (producto) {
                     class="btn btn-primary"
                     id="agregarDetalle"
                     type="button"
+                    ${!producto.disponible || producto.stock <= 0 ? "disabled" : ""}
                 >
-                    Agregar al carrito
+                    ${producto.disponible && producto.stock > 0 ? "Agregar al carrito" : "Producto sin stock"}
                 </button>
                     
 
@@ -264,7 +270,7 @@ botonComentario.addEventListener("click", () => {
 });
 
 mostrarComentarios();
-    const relacionados = productos.filter((otroProducto) =>
+    const relacionados = window.productos.filter((otroProducto) =>
         otroProducto.categoria === producto.categoria &&
         otroProducto.id !== producto.id
     );
@@ -314,6 +320,10 @@ mostrarComentarios();
     }
 } else {
 
+    document.querySelector("#seccionValoraciones").style.display = "none";
+    document.querySelector("#seccionRelacionados").style.display = "none";
+    document.querySelector("#seccionComentarios").style.display = "none";
+
     contenedor.innerHTML = `
         <div class="text-center">
             <h1>Producto no encontrado</h1>
@@ -326,4 +336,17 @@ mostrarComentarios();
         </div>
     `;
 
+}
+
+}
+
+
+document.querySelector("#detalleProducto").innerHTML = `
+    <p class="text-center text-secondary">Cargando producto...</p>
+`;
+
+window.addEventListener("productosCargados", iniciarDetalleProducto);
+
+if (window.estadoProductos) {
+    iniciarDetalleProducto({ detail: window.estadoProductos });
 }

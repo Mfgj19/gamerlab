@@ -1,4 +1,12 @@
-const productos = [
+import { db } from "./firebase/config.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+const productosLocales = [
     {
         id: "p1",
         nombre: "PC Gamer RGB",
@@ -6,6 +14,7 @@ const productos = [
         categoria: "Equipos",
         precio: 1490,
         stock: 8,
+        disponible: true,
         imagen: "assets/img/productos/pc-gamer.png",
         imagenes: [
             "assets/img/productos/pc-gamer.png",
@@ -26,6 +35,7 @@ const productos = [
         categoria: "Equipos",
         precio: 1250,
         stock: 6,
+        disponible: true,
         imagen: "assets/img/productos/laptop-gamer.png",
         imagenes: [
             "assets/img/productos/laptop-gamer.png",
@@ -46,6 +56,7 @@ const productos = [
         categoria: "Periféricos",
         precio: 95,
         stock: 15,
+        disponible: true,
         imagen: "assets/img/productos/teclado-gamer.png",
         imagenes: [
             "assets/img/productos/teclado-gamer.png",
@@ -66,6 +77,7 @@ const productos = [
         categoria: "Periféricos",
         precio: 75,
         stock: 12,
+        disponible: true,
         imagen: "assets/img/productos/auriculares-gamer.png",
         imagenes: [
             "assets/img/productos/auriculares-gamer.png",
@@ -86,6 +98,7 @@ const productos = [
         categoria: "Simulación",
         precio: 320,
         stock: 5,
+        disponible: true,
         imagen: "assets/img/productos/volante-gamer.png",
         imagenes: [
             "assets/img/productos/volante-gamer.png",
@@ -106,6 +119,7 @@ const productos = [
         categoria: "Mobiliario",
         precio: 275,
         stock: 7,
+        disponible: true,
         imagen: "assets/img/productos/silla-gamer.png",
         imagenes: [
             "assets/img/productos/silla-gamer.png",
@@ -120,3 +134,43 @@ const productos = [
         ]
     }
 ];
+
+
+window.productos = [];
+window.estadoProductos = null;
+
+
+async function cargarProductos() {
+    try {
+        const resultado = await getDocs(collection(db, "productos"));
+
+        window.productos = resultado.docs.map((documento) => ({
+            id: documento.id,
+            ...documento.data()
+        }));
+
+        window.estadoProductos = {
+            error: null,
+            desdeRespaldo: false
+        };
+
+        window.dispatchEvent(new CustomEvent("productosCargados", {
+            detail: window.estadoProductos
+        }));
+    } catch (error) {
+        console.error(error);
+        window.productos = productosLocales;
+
+        window.estadoProductos = {
+            error: "No se pudieron consultar los productos en Firestore.",
+            desdeRespaldo: true
+        };
+
+        window.dispatchEvent(new CustomEvent("productosCargados", {
+            detail: window.estadoProductos
+        }));
+    }
+}
+
+
+cargarProductos();
