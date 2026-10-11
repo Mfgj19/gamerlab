@@ -332,6 +332,11 @@ function mostrarCarrito() {
     totalCarrito.textContent = totalFinal;
 }
 
+window.obtenerCarrito = obtenerCarrito;
+window.mostrarMensaje = mostrarMensaje;
+window.actualizarContadorCarrito = actualizarContadorCarrito;
+window.mostrarCarrito = mostrarCarrito;
+
 actualizarContadorCarrito();
 
 window.addEventListener("productosCargados", (evento) => {

@@ -1,3 +1,15 @@
+import { auth, db } from "./firebase/config.js";
+
+import {
+    addDoc,
+    collection,
+    getDocs,
+    query,
+    serverTimestamp,
+    where
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
 function iniciarDetalleProducto(evento) {
 if (evento.detail.error) {
     mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
@@ -112,164 +124,129 @@ if (producto) {
 
     const estrellas = document.querySelectorAll(".estrella");
     const resumenValoraciones = document.querySelector("#resumenValoraciones");
+    const campoComentario = document.querySelector("#comentarioProducto");
+    const botonComentario = document.querySelector("#publicarComentario");
+    const listaComentarios = document.querySelector("#listaComentarios");
+    let valorSeleccionado = 0;
 
-    function obtenerValoraciones() {
-
-        return JSON.parse(
-            localStorage.getItem("valoraciones")
-        ) || {};
-
+    function escaparTexto(texto) {
+        const elemento = document.createElement("div");
+        elemento.textContent = texto;
+        return elemento.innerHTML;
     }
 
-    function guardarValoraciones(valoraciones) {
+    async function cargarOpiniones() {
+        resumenValoraciones.textContent = "Cargando valoraciones...";
+        listaComentarios.innerHTML = `<p class="text-secondary">Cargando comentarios...</p>`;
 
-        localStorage.setItem(
-            "valoraciones",
-            JSON.stringify(valoraciones)
-        );
+        try {
+            const consulta = query(
+                collection(db, "opiniones"),
+                where("productoId", "==", producto.id)
+            );
+            const resultado = await getDocs(consulta);
+            const opiniones = resultado.docs.map((documento) => documento.data());
 
-    }
+            opiniones.sort((a, b) => {
+                const fechaA = a.fecha?.toMillis() || 0;
+                const fechaB = b.fecha?.toMillis() || 0;
+                return fechaB - fechaA;
+            });
 
-    function mostrarResumenValoraciones() {
+            if (opiniones.length === 0) {
+                resumenValoraciones.textContent = "Este producto todavía no tiene valoraciones.";
+                listaComentarios.innerHTML = `
+                    <p class="text-secondary">Este producto todavía no tiene comentarios.</p>
+                `;
+                return;
+            }
 
-        const valoraciones = obtenerValoraciones();
-
-        const valoracionesProducto = valoraciones[producto.id] || [];
-
-        if (valoracionesProducto.length === 0) {
+            const promedio = opiniones.reduce(
+                (total, opinion) => total + opinion.puntuacion,
+                0
+            ) / opiniones.length;
 
             resumenValoraciones.textContent =
-                "Este producto todavía no tiene valoraciones.";
+                `Promedio: ${promedio.toFixed(1)} de 5 · ${opiniones.length} valoraciones`;
 
-            return;
+            listaComentarios.innerHTML = opiniones.map((opinion) => `
+                <article class="border rounded p-3 mb-2">
+                    <div class="d-flex justify-content-between gap-3 flex-wrap mb-2">
+                        <strong>${escaparTexto(opinion.usuarioNombre)}</strong>
+                        <span class="text-warning">${"★".repeat(opinion.puntuacion)}</span>
+                    </div>
+                    <p class="mb-0">${escaparTexto(opinion.comentario)}</p>
+                </article>
+            `).join("");
+        } catch (error) {
+            console.error(error);
+            resumenValoraciones.textContent = "No se pudieron cargar las valoraciones.";
+            listaComentarios.innerHTML = `
+                <p class="text-danger">No se pudieron cargar los comentarios.</p>
+            `;
         }
-
-        const suma = valoracionesProducto.reduce(
-            (total, valor) => total + valor,
-            0
-        );
-
-        const promedio = suma / valoracionesProducto.length;
-
-        resumenValoraciones.textContent =
-            `Promedio: ${promedio.toFixed(1)} de 5 · ${valoracionesProducto.length} valoraciones`;
     }
 
     estrellas.forEach((estrella) => {
-
         estrella.addEventListener("click", () => {
-
-            const valor = Number(estrella.dataset.valor);
+            valorSeleccionado = Number(estrella.dataset.valor);
 
             estrellas.forEach((otraEstrella) => {
-
                 const valorEstrella = Number(otraEstrella.dataset.valor);
+                otraEstrella.classList.toggle("btn-warning", valorEstrella <= valorSeleccionado);
+                otraEstrella.classList.toggle("btn-outline-warning", valorEstrella > valorSeleccionado);
+            });
+        });
+    });
 
-                if (valorEstrella <= valor) {
-                    otraEstrella.classList.add("btn-warning");
-                    otraEstrella.classList.remove("btn-outline-warning");
-                } else {
-                    otraEstrella.classList.remove("btn-warning");
-                    otraEstrella.classList.add("btn-outline-warning");
-                }
+    botonComentario.addEventListener("click", async () => {
+        const usuario = auth.currentUser;
+        const textoComentario = campoComentario.value.trim();
 
+        if (!usuario) {
+            mostrarMensaje("Iniciá sesión para publicar una opinión.");
+            return;
+        }
+
+        if (valorSeleccionado < 1 || valorSeleccionado > 5) {
+            mostrarMensaje("Elegí una puntuación de 1 a 5 estrellas.");
+            return;
+        }
+
+        if (textoComentario.length < 3 || textoComentario.length > 500) {
+            mostrarMensaje("El comentario debe tener entre 3 y 500 caracteres.");
+            return;
+        }
+
+        botonComentario.disabled = true;
+
+        try {
+            await addDoc(collection(db, "opiniones"), {
+                productoId: producto.id,
+                usuarioId: usuario.uid,
+                usuarioNombre: usuario.displayName || usuario.email,
+                puntuacion: valorSeleccionado,
+                comentario: textoComentario,
+                fecha: serverTimestamp()
             });
 
-            const valoraciones = obtenerValoraciones();
-
-            if (!valoraciones[producto.id]) {
-                valoraciones[producto.id] = [];
-            }
-
-            valoraciones[producto.id].push(valor);
-
-            guardarValoraciones(valoraciones);
-
-            mostrarResumenValoraciones();
-
-        });
-
-
+            campoComentario.value = "";
+            valorSeleccionado = 0;
+            estrellas.forEach((estrella) => {
+                estrella.classList.remove("btn-warning");
+                estrella.classList.add("btn-outline-warning");
+            });
+            mostrarMensaje("Opinión publicada correctamente.");
+            await cargarOpiniones();
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje("No se pudo publicar la opinión.");
+        } finally {
+            botonComentario.disabled = false;
+        }
     });
 
-    mostrarResumenValoraciones();
-    const campoComentario = document.querySelector("#comentarioProducto");
-const botonComentario = document.querySelector("#publicarComentario");
-const listaComentarios = document.querySelector("#listaComentarios");
-
-function obtenerComentarios() {
-
-    return JSON.parse(
-        localStorage.getItem("comentarios")
-    ) || {};
-
-}
-
-function guardarComentarios(comentarios) {
-
-    localStorage.setItem(
-        "comentarios",
-        JSON.stringify(comentarios)
-    );
-
-}
-
-function mostrarComentarios() {
-
-    const comentarios = obtenerComentarios();
-
-    const comentariosProducto = comentarios[producto.id] || [];
-
-    listaComentarios.innerHTML = "";
-
-    if (comentariosProducto.length === 0) {
-
-        listaComentarios.innerHTML = `
-            <p class="text-secondary">
-                Este producto todavía no tiene comentarios.
-            </p>
-        `;
-
-        return;
-    }
-
-    comentariosProducto.forEach((comentario) => {
-
-        listaComentarios.innerHTML += `
-            <div class="border rounded p-3 mb-2">
-                <p class="mb-0">${comentario}</p>
-            </div>
-        `;
-
-    });
-
-}
-
-botonComentario.addEventListener("click", () => {
-
-    const textoComentario = campoComentario.value.trim();
-
-    if (textoComentario === "") {
-        return;
-    }
-
-    const comentarios = obtenerComentarios();
-
-    if (!comentarios[producto.id]) {
-        comentarios[producto.id] = [];
-    }
-
-    comentarios[producto.id].push(textoComentario);
-
-    guardarComentarios(comentarios);
-
-    campoComentario.value = "";
-
-    mostrarComentarios();
-
-});
-
-mostrarComentarios();
+    cargarOpiniones();
     const relacionados = window.productos.filter((otroProducto) =>
         otroProducto.categoria === producto.categoria &&
         otroProducto.id !== producto.id

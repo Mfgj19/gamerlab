@@ -167,10 +167,8 @@ gamerlab/
 
 ## Funcionalidades pendientes
 
-- Pedidos.
 - Panel administrativo.
 - Operaciones CRUD.
-- Reglas de seguridad.
 - Publicación final en GitHub Pages.
 
 ## Decisiones de diseño
@@ -209,12 +207,23 @@ Sprint 1 finalizado.
 
 Sprint 2 finalizado.
 
-Sprint 3 en desarrollo.
+Sprint 3 finalizado.
 
 - Avance al 20/09 completado: configuración de Firebase, registro e inicio de sesión con correo y contraseña, persistencia y cierre de sesión, datos de usuario en Firestore, navbar según el estado de autenticación y perfil protegido.
 - La configuración de Firebase se encuentra en `js/firebase/config.js` y la autenticación en `js/firebase/auth.js`.
 - Avance al 04/10 completado: colección `productos` en Firestore, catálogo y detalle obtenidos desde la base de datos, búsqueda, filtros, ordenamiento y validación de disponibilidad y stock antes de agregar al carrito.
 - Si la consulta de productos falla, la aplicación informa el problema y utiliza el catálogo local como respaldo.
+- Avance al 11/10 completado: confirmación de compras para usuarios autenticados, pedidos guardados en Firestore, actualización de stock mediante transacciones e historial de pedidos en el perfil.
+- Los comentarios y las valoraciones se guardan como opiniones en Firestore y quedan asociados al producto y al usuario autenticado.
+- La lógica de autenticación se encuentra en `js/firebase/auth.js`, la de compras y pedidos en `js/firebase/pedidos.js`, y la consulta y publicación de opiniones en `js/producto.js`.
+- Al confirmar una compra se vuelven a consultar los productos, se valida el stock, se registra el pedido y se descuenta el stock en una única transacción. El carrito se vacía solamente si la operación termina correctamente.
+
+## Usuario de prueba
+
+Cuenta creada exclusivamente para evaluar el proyecto:
+
+- Correo: `ferprueba@gmail.com`
+- Contraseña: `pruebafer`
 
 ## Enlace al repositorio
 
