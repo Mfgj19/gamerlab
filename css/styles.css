@@ -447,3 +447,301 @@ h3,
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
+
+/* Panel administrativo */
+.admin-main {
+    background:
+        radial-gradient(circle at 8% 12%, rgba(8, 145, 178, 0.12), transparent 25%),
+        radial-gradient(circle at 92% 30%, rgba(219, 39, 119, 0.08), transparent 24%),
+        #f3f8fa;
+}
+
+.admin-hero {
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    border-radius: 1.5rem;
+    background: #0f172a;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+}
+
+.admin-hero-copy {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background:
+        radial-gradient(circle at 0 0, rgba(8, 145, 178, 0.35), transparent 42%),
+        linear-gradient(135deg, #0f172a 0%, #172554 100%);
+}
+
+.admin-eyebrow {
+    color: #67e8f9;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.admin-hero-text {
+    max-width: 35rem;
+    color: #cbd5e1;
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+.admin-status,
+.admin-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.admin-status {
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    background: rgba(16, 185, 129, 0.13);
+    color: #a7f3d0;
+}
+
+.admin-status span {
+    color: #34d399;
+}
+
+.admin-role {
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    background: rgba(8, 145, 178, 0.16);
+    color: #cffafe;
+}
+
+.admin-logo-stage {
+    position: relative;
+    min-height: 390px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        linear-gradient(rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.55)),
+        repeating-linear-gradient(90deg, transparent 0 54px, rgba(103, 232, 249, 0.055) 55px 56px),
+        repeating-linear-gradient(0deg, transparent 0 54px, rgba(103, 232, 249, 0.055) 55px 56px),
+        #0b1224;
+}
+
+.admin-logo-stage::before,
+.admin-logo-stage::after {
+    content: "";
+    position: absolute;
+    width: 13rem;
+    height: 13rem;
+    border-radius: 50%;
+    filter: blur(65px);
+    opacity: 0.34;
+    z-index: -1;
+}
+
+.admin-logo-stage::before {
+    top: 8%;
+    left: 15%;
+    background: var(--primary);
+}
+
+.admin-logo-stage::after {
+    right: 10%;
+    bottom: 5%;
+    background: var(--accent);
+}
+
+.admin-logo-glow {
+    position: absolute;
+    width: 19rem;
+    height: 19rem;
+    border: 1px solid rgba(103, 232, 249, 0.18);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 28px rgba(8, 145, 178, 0.04),
+        0 0 0 58px rgba(219, 39, 119, 0.025);
+}
+
+.admin-role-logo {
+    position: relative;
+    width: min(75%, 330px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.46));
+}
+
+.admin-summary-card,
+.admin-panel {
+    border: 1px solid #dbe7ed;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.admin-summary-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgba(15, 23, 42, 0.12);
+}
+
+.admin-card-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+    border-radius: 0.8rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.icon-cyan { background: #cffafe; color: #0e7490; }
+.icon-pink { background: #fce7f3; color: #be185d; }
+.icon-blue { background: #dbeafe; color: #1d4ed8; }
+.icon-green { background: #d1fae5; color: #047857; }
+
+.admin-card-label {
+    margin-bottom: 0.2rem;
+    color: #64748b;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.admin-summary-card strong {
+    margin-bottom: 0.35rem;
+    color: var(--secondary);
+    font-family: Rajdhani, Inter, sans-serif;
+    font-size: 1.25rem;
+}
+
+.admin-summary-card small {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.admin-panel {
+    overflow: hidden;
+    border-radius: 1rem;
+    padding: 1.4rem;
+}
+
+.admin-panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.admin-online-badge {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.admin-table thead th {
+    border-bottom-color: #dbe7ed;
+    color: #64748b;
+    font-size: 0.73rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.admin-table tbody td {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom-color: #edf2f7;
+    color: #475569;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-table td strong,
+.admin-table td small {
+    display: block;
+}
+
+.admin-table td strong {
+    color: var(--ink);
+}
+
+.admin-table td small {
+    margin-top: 0.18rem;
+    color: #94a3b8;
+}
+
+.admin-table-status {
+    display: inline-block;
+    border-radius: 999px;
+    background: #ecfeff;
+    color: #0e7490;
+    padding: 0.32rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.admin-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid #dbe7ed;
+    border-radius: 0.85rem;
+    padding: 0.95rem 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.admin-action:hover {
+    transform: translateX(3px);
+    border-color: var(--primary);
+    background: #ecfeff;
+    color: var(--secondary);
+}
+
+.admin-action strong,
+.admin-action small {
+    display: block;
+}
+
+.admin-action small {
+    margin-top: 0.2rem;
+    color: #64748b;
+}
+
+.admin-action > span:last-child {
+    color: var(--accent);
+    font-size: 1.4rem;
+}
+
+@media (max-width: 991px) {
+    .admin-logo-stage {
+        min-height: 280px;
+    }
+
+    .admin-role-logo {
+        width: min(58%, 270px);
+    }
+}
+
+@media (max-width: 575px) {
+    .admin-panel-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-table {
+        min-width: 620px;
+    }
+}

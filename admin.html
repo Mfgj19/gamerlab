@@ -27,34 +27,148 @@
                         </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
+                    <li class="nav-item d-none" data-admin-link><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                 </ul>
                 <button class="btn btn-outline-light btn-sm" id="btnLoginPlaceholder">Ingresar</button>
             </div>
         </div>
     </nav>
-    <main class='flex-grow-1'>
+    <main class="flex-grow-1 admin-main">
         <div class="container py-5">
-            <section class="locked-module">
-                <div class="locked-icon">🛡️</div>
-                <span class="badge rounded-pill text-bg-warning mb-3">Sprint 3 · Semanas 9 a 12</span>
-                <h1>Panel administrativo</h1>
-                <p class="lead">Solo será visible para administradores autenticados.</p>
-                <div class="locked-card">
-                    <h2 class="h5">Funcionalidad en desarrollo</h2>
-                    <p>Este módulo forma parte de la arquitectura final, pero su código deberá desarrollarse en el
-                        sprint indicado.</p>
-                    <ul>
-                        <li>Validación de rol</li>
-                        <li>Alta de productos</li>
-                        <li>Edición</li>
-                        <li>Eliminación o baja</li>
-                        <li>Stock y disponibilidad</li>
-                        <li>Consulta de pedidos</li>
-                    </ul>
-                </div>
-                <a class="btn btn-outline-primary mt-3" href="index.html">Volver al inicio</a>
-            </section>
+            <div class="text-center py-5" id="estadoAdmin" role="status">
+                <div class="spinner-border text-primary mb-3" aria-hidden="true"></div>
+                <p class="text-secondary">Verificando permisos de acceso...</p>
+            </div>
+            <div class="d-none" id="contenidoAdmin">
+                <section class="admin-hero overflow-hidden mb-4">
+                    <div class="row g-0 align-items-stretch">
+                        <div class="col-lg-5 d-flex align-items-center">
+                            <div class="admin-hero-copy p-4 p-md-5">
+                                <span class="admin-eyebrow">Área privada · Acceso seguro</span>
+                                <h1 class="display-5 fw-bold text-white mt-3 mb-3">Panel administrativo</h1>
+                                <p class="admin-hero-text mb-4">Supervisá el catálogo, el inventario y la actividad de
+                                    GamerLab desde un mismo lugar.</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="admin-status"><span aria-hidden="true">●</span> Sesión verificada</span>
+                                    <span class="admin-role">Administradora</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 admin-logo-stage">
+                            <div class="admin-logo-glow" aria-hidden="true"></div>
+                            <img class="admin-role-logo" src="assets/img/logo/admin-role.png"
+                                alt="Emblema de administración de GamerLab: escudo tecnológico con corona y circuitos">
+                        </div>
+                    </div>
+                </section>
+
+                <section aria-labelledby="resumenAdmin">
+                    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
+                        <div>
+                            <span class="eyebrow">Vista general</span>
+                            <h2 class="h3 mb-0" id="resumenAdmin">Centro de control</h2>
+                        </div>
+                        <span class="text-secondary small">GamerLab · Administración</span>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6 col-xl-3">
+                            <article class="admin-summary-card h-100">
+                                <span class="admin-card-icon icon-cyan" aria-hidden="true">▦</span>
+                                <span class="admin-card-label">Productos</span>
+                                <strong>Catálogo</strong>
+                                <small>Consulta los artículos publicados.</small>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <article class="admin-summary-card h-100">
+                                <span class="admin-card-icon icon-pink" aria-hidden="true">◇</span>
+                                <span class="admin-card-label">Inventario</span>
+                                <strong>Stock</strong>
+                                <small>Controlá existencias y disponibilidad.</small>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <article class="admin-summary-card h-100">
+                                <span class="admin-card-icon icon-blue" aria-hidden="true">≡</span>
+                                <span class="admin-card-label">Actividad</span>
+                                <strong>Pedidos</strong>
+                                <small>Revisá las compras registradas.</small>
+                            </article>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <article class="admin-summary-card h-100">
+                                <span class="admin-card-icon icon-green" aria-hidden="true">✓</span>
+                                <span class="admin-card-label">Seguridad</span>
+                                <strong>Acceso protegido</strong>
+                                <small>Tu rol fue validado correctamente.</small>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <section class="admin-panel h-100" aria-labelledby="areasGestion">
+                                <div class="admin-panel-heading">
+                                    <div>
+                                        <span class="eyebrow">Administración</span>
+                                        <h2 class="h4 mb-0" id="areasGestion">Áreas de gestión</h2>
+                                    </div>
+                                    <span class="badge rounded-pill admin-online-badge">Sistema activo</span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table admin-table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Área</th>
+                                                <th scope="col">Control disponible</th>
+                                                <th scope="col">Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Catálogo</strong><small>Productos de la tienda</small></td>
+                                                <td>Consulta y organización</td>
+                                                <td><span class="admin-table-status">Visible</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Inventario</strong><small>Stock y disponibilidad</small></td>
+                                                <td>Seguimiento de existencias</td>
+                                                <td><span class="admin-table-status">Protegido</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Pedidos</strong><small>Actividad de compras</small></td>
+                                                <td>Consulta administrativa</td>
+                                                <td><span class="admin-table-status">Protegido</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-lg-4">
+                            <aside class="admin-panel h-100" aria-labelledby="accesosRapidos">
+                                <span class="eyebrow">Navegación</span>
+                                <h2 class="h4 mb-4" id="accesosRapidos">Accesos rápidos</h2>
+                                <div class="d-grid gap-3">
+                                    <a class="admin-action" href="catalogo.html">
+                                        <span><strong>Ver catálogo</strong><small>Revisar productos publicados</small></span>
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                    <a class="admin-action" href="perfil.html">
+                                        <span><strong>Mi perfil</strong><small>Consultar datos de la cuenta</small></span>
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                    <a class="admin-action" href="index.html">
+                                        <span><strong>Ver tienda</strong><small>Ir a la página principal</small></span>
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
     <footer class="footer py-4 mt-auto">

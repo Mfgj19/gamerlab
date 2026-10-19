@@ -218,6 +218,21 @@ Sprint 3 finalizado.
 - La lógica de autenticación se encuentra en `js/firebase/auth.js`, la de compras y pedidos en `js/firebase/pedidos.js`, y la consulta y publicación de opiniones en `js/producto.js`.
 - Al confirmar una compra se vuelven a consultar los productos, se valida el stock, se registra el pedido y se descuenta el stock en una única transacción. El carrito se vacía solamente si la operación termina correctamente.
 
+Sprint 4 en desarrollo.
+
+- Corte al 18/10 completado: cada usuario posee un campo `rol` en Firestore y las cuentas nuevas se registran automáticamente como `cliente`.
+- El rol `administrador` se asigna manualmente desde Firestore a una cuenta de prueba; el formulario público no permite elegirlo.
+- El enlace al panel administrativo se muestra únicamente a usuarios con rol `administrador`.
+- `admin.html` verifica la sesión y el rol antes de mostrar su contenido. Los usuarios sin permisos son redirigidos al perfil con un mensaje explicativo.
+
+### Configuración de la cuenta administradora de prueba
+
+1. Crear una cuenta desde `perfil.html`.
+2. Abrir Firestore y entrar a la colección `usuarios`.
+3. Buscar el documento cuyo identificador coincide con el UID de esa cuenta.
+4. Cambiar el campo `rol` de `cliente` a `administrador`.
+5. Cerrar la sesión y volver a iniciarla para comprobar el acceso administrativo.
+
 ## Usuario de prueba
 
 Cuenta creada exclusivamente para evaluar el proyecto:
