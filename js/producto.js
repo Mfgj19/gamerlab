@@ -1,3 +1,5 @@
+import "./carrito.js";
+import { escaparHTML, imagenSegura } from "./seguridad.js";
 import { auth, db } from "./firebase/config.js";
 
 import {
@@ -11,9 +13,7 @@ import {
 
 
 function iniciarDetalleProducto(evento) {
-if (evento.detail.error) {
-    mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
-}
+if (evento.detail.error) { document.querySelector("#detalleProducto").textContent = "No se pudo cargar el producto. Revisa la conexión y recarga la página."; return; }
 
 const parametros = new URLSearchParams(window.location.search);
 
@@ -39,9 +39,9 @@ if (producto) {
             ${producto.imagenes.map((imagen, indice) => `
                 <div class="carousel-item ${indice === 0 ? "active" : ""}">
                     <img
-                        src="${imagen}"
+                        src="${escaparHTML(imagenSegura(imagen))}"
                         class="d-block w-100"
-                        alt="${producto.nombre} - imagen ${indice + 1}"
+                        alt="${escaparHTML(producto.nombre)} - imagen ${indice + 1}"
                     >
                 </div>
             `).join("")}
@@ -74,12 +74,12 @@ if (producto) {
 
             <div class="col-md-6">
 
-                <span class="eyebrow">${producto.categoria}</span>
+                <span class="eyebrow">${escaparHTML(producto.categoria)}</span>
 
-                <h1 class="mt-2">${producto.nombre}</h1>
+                <h1 class="mt-2">${escaparHTML(producto.nombre)}</h1>
 
                 <p class="text-secondary">
-                    ${producto.descripcion}
+                    ${escaparHTML(producto.descripcion)}
                 </p>
 
                 <p>
@@ -95,7 +95,7 @@ if (producto) {
 
                     <ul>
                         ${producto.caracteristicas.map((caracteristica) =>
-        `<li>${caracteristica}</li>`
+        `<li>${escaparHTML(caracteristica)}</li>`
     ).join("")}
                     </ul>
                 </div>
@@ -108,7 +108,7 @@ if (producto) {
                 >
                     ${producto.disponible && producto.stock > 0 ? "Agregar al carrito" : "Producto sin stock"}
                 </button>
-                    
+
 
             </div>
 
@@ -130,9 +130,7 @@ if (producto) {
     let valorSeleccionado = 0;
 
     function escaparTexto(texto) {
-        const elemento = document.createElement("div");
-        elemento.textContent = texto;
-        return elemento.innerHTML;
+        return escaparHTML(texto);
     }
 
     async function cargarOpiniones() {
@@ -145,7 +143,9 @@ if (producto) {
                 where("productoId", "==", producto.id)
             );
             const resultado = await getDocs(consulta);
-            const opiniones = resultado.docs.map((documento) => documento.data());
+            const opiniones = resultado.docs
+                .map((documento) => documento.data())
+                .filter((opinion) => opinion.visible !== false);
 
             opiniones.sort((a, b) => {
                 const fechaA = a.fecha?.toMillis() || 0;
@@ -209,7 +209,7 @@ if (producto) {
         }
 
         if (valorSeleccionado < 1 || valorSeleccionado > 5) {
-            mostrarMensaje("Elegí una puntuación de 1 a 5 estrellas.");
+            mostrarMensaje("Elige una puntuación de 1 a 5 estrellas.");
             return;
         }
 
@@ -264,22 +264,22 @@ if (producto) {
                 <article class="placeholder-product h-100">
 
                     <img
-                        src="${relacionado.imagen}"
-                        alt="${relacionado.nombre}"
+                        src="${escaparHTML(relacionado.imagen)}"
+                        alt="${escaparHTML(relacionado.nombre)}"
                         class="product-image"
                     >
 
                     <div class="p-3">
-                        <span class="eyebrow">${relacionado.categoria}</span>
+                        <span class="eyebrow">${escaparHTML(relacionado.categoria)}</span>
 
-                        <h3 class="h5 mt-2">${relacionado.nombre}</h3>
+                        <h3 class="h5 mt-2">${escaparHTML(relacionado.nombre)}</h3>
 
                         <p>
                             <strong>Precio:</strong> USD ${relacionado.precio}
                         </p>
 
                         <a
-                            href="producto.html?id=${relacionado.id}"
+                            href="producto.html?id=${encodeURIComponent(relacionado.id)}"
                             class="btn btn-primary btn-sm"
                         >
                             Ver producto

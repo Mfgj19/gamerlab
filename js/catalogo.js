@@ -1,81 +1,10 @@
+import { tarjetasProductos, activarBotonesCarrito } from './tarjetas.js';
 function mostrarProductos(productos) {
-
-    const contenedor = document.querySelector("#catalogoProductos");
-
-    contenedor.innerHTML = "";
-
-    if (productos.length === 0) {
-
-        contenedor.innerHTML = `
-        <div class="col-12">
-            <p class="text-center text-secondary">
-                No se encontraron productos.
-            </p>
-        </div>
-    `;
-
-        return;
-    }
-
-    productos.forEach((producto) => {
-
-        contenedor.innerHTML += `
-            <div class="col-md-6 col-xl-4">
-                <article class="placeholder-product h-100">
-
-                    <img 
-                        src="${producto.imagen}" 
-                        alt="${producto.nombre}" 
-                        class="product-image"
-                    >
-
-                    <div class="p-3">
-
-                        <span class="eyebrow">${producto.categoria}</span>
-
-                        <h2 class="h5 mt-2">${producto.nombre}</h2>
-
-                        <p class="text-secondary small">
-                            ${producto.descripcion}
-                        </p>
-
-                        <p class="mb-1">
-                            <strong>Precio:</strong> USD ${producto.precio}
-                        </p>
-
-                        <p class="mb-3">
-                            <strong>Stock:</strong> ${producto.stock} unidades
-                        </p>
-
-                        <a href="producto.html?id=${producto.id}"
-                        class="btn btn-primary btn-sm"
-                        >
-                        Ver producto
-                        </a>
-                        <button
-                            class="btn btn-outline-primary btn-sm agregar-carrito"
-                            data-id="${producto.id}"
-                            type="button"
-                            ${!producto.disponible || producto.stock <= 0 ? "disabled" : ""}
-                        >
-                            ${producto.disponible && producto.stock > 0 ? "Agregar al carrito" : "Sin stock"}
-                        </button>
-                    </div>
-
-                </article>
-            </div>
-        `;
-    });
-
-    document.querySelectorAll(".agregar-carrito").forEach((boton) => {
-
-        boton.addEventListener("click", () => {
-
-            agregarAlCarrito(boton.dataset.id);
-        });
-    });
+ const contenedor = document.querySelector('#catalogoProductos');
+ contenedor.innerHTML = productos.length ? tarjetasProductos(productos) : '<div class="col-12"><div class="catalogo-vacio"><h2 class="h3">No encontramos coincidencias</h2><p>Prueba con otro nombre o cambia la categoría.</p><button type="button" class="btn btn-outline-primary" id="restablecerBusqueda">Ver todos los productos</button></div></div>';
+ activarBotonesCarrito(contenedor);
+ document.querySelector('#restablecerBusqueda')?.addEventListener('click', limpiarFiltros);
 }
-
 const buscador = document.querySelector("#buscarProducto");
 const selectorCategoria = document.querySelector("#filtroCategoria");
 const selectorOrden = document.querySelector("#ordenProductos");
@@ -84,11 +13,12 @@ const botonLimpiar = document.querySelector("#limpiarFiltros");
 
 function aplicarFiltros() {
 
-    const textoBusqueda = buscador.value.toLowerCase();
+    const normalizar = texto => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const textoBusqueda = normalizar(buscador.value.trim());
     const categoriaSeleccionada = selectorCategoria.value;
 
     let productosFiltrados = window.productos.filter((producto) =>
-        producto.nombre.toLowerCase().includes(textoBusqueda)
+        normalizar(producto.nombre).includes(textoBusqueda)
     );
 
     if (categoriaSeleccionada !== "Todas") {
@@ -147,16 +77,21 @@ botonLimpiar.addEventListener("click", limpiarFiltros);
 
 function iniciarCatalogo(evento) {
     if (evento.detail.error) {
-        mostrarMensaje(`${evento.detail.error} Se muestra el respaldo local.`);
+        mostrarMensaje(evento.detail.error);
     }
 
+    if (evento.detail.error) { cantidadResultados.textContent = ""; document.querySelector("#catalogoProductos").innerHTML = '<p role="alert">No se pudo cargar el catálogo. Revisa la conexión y recarga la página.</p>'; return; }
     cantidadResultados.textContent = window.productos.length === 1
         ? "1 producto encontrado"
         : `${window.productos.length} productos encontrados`;
-    mostrarProductos(window.productos);
+    aplicarFiltros();
 }
 
 
+const parametrosCatalogo = new URLSearchParams(window.location.search);
+buscador.value = parametrosCatalogo.get('q') || '';
+const categoriaInicial = parametrosCatalogo.get('categoria');
+if ([...selectorCategoria.options].some(opcion => opcion.value === categoriaInicial)) selectorCategoria.value = categoriaInicial;
 cantidadResultados.textContent = "Cargando productos...";
 
 window.addEventListener("productosCargados", iniciarCatalogo);

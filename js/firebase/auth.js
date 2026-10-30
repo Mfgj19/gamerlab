@@ -1,3 +1,4 @@
+import { sesionCarritoLista, incorporarCarritoVisitante, esperarCarritoDe } from "../carrito.js";
 import { auth, db } from "./config.js";
 
 import {
@@ -15,6 +16,22 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+
+let registroEnCurso = false;
+let usuarioRegistro = null;
+let revisionSesion = 0;
+
+async function continuarCompra() {
+    let continuar = false;
+    try { continuar = sessionStorage.getItem("gamerlab:continuar-compra") === "si"; } catch {}
+    if (!continuar) return false;
+    await sesionCarritoLista;
+    await esperarCarritoDe(auth.currentUser?.uid);
+    incorporarCarritoVisitante();
+    try { sessionStorage.removeItem("gamerlab:continuar-compra"); } catch {}
+    window.location.href = "carrito.html";
+    return true;
+}
 
 const formRegistro = document.querySelector("#formRegistro");
 const formLogin = document.querySelector("#formLogin");
@@ -53,12 +70,12 @@ function mensajeError(codigo) {
         "auth/email-already-in-use": "El correo ya está registrado.",
         "auth/invalid-email": "El correo electrónico no es válido.",
         "auth/invalid-credential": "El correo o la contraseña no son correctos.",
-        "auth/missing-password": "Ingresá una contraseña.",
+        "auth/missing-password": "Ingresa una contraseña.",
         "auth/weak-password": "La contraseña debe tener al menos 6 caracteres.",
-        "auth/too-many-requests": "Se realizaron demasiados intentos. Probá nuevamente más tarde."
+        "auth/too-many-requests": "Se realizaron demasiados intentos. Prueba nuevamente más tarde."
     };
 
-    return mensajes[codigo] || "Ocurrió un error. Intentá nuevamente.";
+    return mensajes[codigo] || "Ocurrió un error. Intenta nuevamente.";
 }
 
 
@@ -109,7 +126,7 @@ if (formRegistro) {
         const confirmacion = document.querySelector("#passwordConfirmacion").value;
 
         if (!nombre) {
-            mostrarMensaje("Ingresá tu nombre.");
+            mostrarMensaje("Ingresa tu nombre.");
             return;
         }
 
@@ -118,9 +135,17 @@ if (formRegistro) {
             return;
         }
 
+        registroEnCurso = true;
+        const boton = formRegistro.querySelector('[type="submit"]');
+        boton.disabled = true;
         try {
-            const credencial = await createUserWithEmailAndPassword(auth, email, password);
-            const usuario = credencial.user;
+            if (!usuarioRegistro) {
+                const credencial = await createUserWithEmailAndPassword(auth, email, password);
+                usuarioRegistro = credencial.user;
+                ["emailRegistro", "passwordRegistro", "passwordConfirmacion"].forEach(id => document.getElementById(id).readOnly = true);
+            }
+            const usuario = usuarioRegistro;
+            if (auth.currentUser?.uid !== usuario.uid) throw new Error("La sesión cambió. Inicia sesión para recuperar tu cuenta.");
 
             await updateProfile(usuario, {
                 displayName: nombre
@@ -135,10 +160,11 @@ if (formRegistro) {
 
             formRegistro.reset();
             mostrarMensaje("Cuenta creada correctamente.");
+            if (!(await continuarCompra())) window.location.href = "perfil.html";
         } catch (error) {
             console.error(error);
-            mostrarMensaje(mensajeError(error.code));
-        }
+            mostrarMensaje(usuarioRegistro ? "La cuenta fue creada, pero no se pudo completar el perfil. Revisa la conexión y selecciona Reintentar guardar perfil." : mensajeError(error.code));
+        } finally { registroEnCurso = false; boton.disabled = false; if (usuarioRegistro) boton.textContent = "Reintentar guardar perfil"; }
     });
 }
 
@@ -150,19 +176,34 @@ if (formLogin) {
         const email = document.querySelector("#emailLogin").value.trim();
         const password = document.querySelector("#passwordLogin").value;
 
+        const boton = formLogin.querySelector('[type="submit"]');
+        boton.disabled = true;
         try {
             await signInWithEmailAndPassword(auth, email, password);
             formLogin.reset();
             mostrarMensaje("Sesión iniciada correctamente.");
+            await continuarCompra();
         } catch (error) {
             console.error(error);
             mostrarMensaje(mensajeError(error.code));
-        }
+        } finally { boton.disabled = false; }
     });
 }
 
 
+document.querySelector('#cerrarSesionMenu')?.addEventListener('click', () => btnSesion?.click());
+function actualizarCuentaBarra(usuario, nombre) {
+    document.querySelector('#menuCuentaGamer')?.classList.toggle('d-none', !usuario);
+    btnSesion?.classList.toggle('d-none', Boolean(usuario));
+    const etiqueta = document.querySelector('#nombreCuentaBarra');
+    if (etiqueta) etiqueta.textContent = nombre || usuario?.displayName || 'Mi cuenta';
+}
 onAuthStateChanged(auth, async (usuario) => {
+    actualizarCuentaBarra(usuario);
+    const revision = ++revisionSesion;
+    actualizarEnlacesAdmin(false);
+    contenidoAdmin?.classList.add("d-none");
+    if (registroEnCurso && usuario) return;
     if (btnSesion) {
         btnSesion.textContent = usuario ? "Cerrar sesión" : "Ingresar";
     }
@@ -174,7 +215,7 @@ onAuthStateChanged(auth, async (usuario) => {
         actualizarEnlacesAdmin(false);
 
         if (document.body.dataset.page === "admin") {
-            redirigirSinPermisos("Debés iniciar sesión para acceder al panel administrativo.");
+            redirigirSinPermisos("Debes iniciar sesión para acceder al panel administrativo.");
         }
 
         return;
@@ -190,6 +231,7 @@ onAuthStateChanged(auth, async (usuario) => {
     try {
         const referenciaUsuario = doc(db, "usuarios", usuario.uid);
         const documento = await getDoc(referenciaUsuario);
+        if (revision !== revisionSesion || auth.currentUser?.uid !== usuario.uid) return;
         let datosUsuario;
 
         if (documento.exists()) {
@@ -226,7 +268,19 @@ onAuthStateChanged(auth, async (usuario) => {
             await setDoc(referenciaUsuario, datosUsuario);
         }
 
-        const rol = String(datosUsuario.rol || "cliente").toLowerCase();
+        if (revision !== revisionSesion || auth.currentUser?.uid !== usuario.uid) return;
+        if (datosUsuario.activo === false) {
+            await signOut(auth);
+            actualizarEnlacesAdmin(false);
+            mostrarMensaje("Esta cuenta fue desactivada por administración.");
+            if (document.body.dataset.page === "admin") {
+                redirigirSinPermisos("La cuenta está desactivada.");
+            }
+            return;
+        }
+
+        actualizarCuentaBarra(usuario, datosUsuario.nombre);
+        const rol = String(datosUsuario.rol || "cliente");
         const esAdministrador = rol === "administrador";
         actualizarEnlacesAdmin(esAdministrador);
 
@@ -246,7 +300,7 @@ onAuthStateChanged(auth, async (usuario) => {
 
         if (document.body.dataset.page === "admin") {
             if (!esAdministrador) {
-                redirigirSinPermisos("No tenés permisos para acceder al panel administrativo.");
+                redirigirSinPermisos("No tienes permisos para acceder al panel administrativo.");
                 return;
             }
 
@@ -258,7 +312,7 @@ onAuthStateChanged(auth, async (usuario) => {
         actualizarEnlacesAdmin(false);
 
         if (document.body.dataset.page === "admin") {
-            redirigirSinPermisos("No fue posible verificar tus permisos. Intentá nuevamente.");
+            redirigirSinPermisos("No fue posible verificar tus permisos. Intenta nuevamente.");
             return;
         }
 

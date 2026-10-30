@@ -6,77 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <title>GamerLab | Administración</title>
 </head>
 
 <body class='d-flex flex-column min-vh-100' data-page='admin'>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" aria-label="Ir al inicio de GamerLab">
-                <img src="assets/img/logo/logo.png" alt="Logo de GamerLab" class="navbar-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span
-                    class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-page="carrito" href="carrito.html">
-                            Carrito <span class="badge rounded-pill bg-danger" id="contadorCarrito">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
-                    <li class="nav-item d-none" data-admin-link><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
-                </ul>
-                <button class="btn btn-outline-light btn-sm" id="btnLoginPlaceholder">Ingresar</button>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top gamer-nav" aria-label="Navegación principal">
+ <div class="container"><a class="navbar-brand" href="index.html" aria-label="Ir al inicio de GamerLab"><img src="assets/img/logo/logo.png" alt="GamerLab" class="navbar-logo"></a>
+ <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir navegación"><span class="navbar-toggler-icon"></span></button>
+ <div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li><li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li></ul>
+ <form class="lab-search" role="search" action="catalogo.html" autocomplete="off"><label class="visually-hidden" for="busquedaBarra">Buscar productos</label><div class="lab-search-field"><input id="busquedaBarra" name="q" type="search" placeholder="Buscar en GamerLab…" aria-expanded="false" aria-controls="resultadosBarra" aria-autocomplete="list" role="combobox"><button type="submit" aria-label="Buscar en el catálogo"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button></div><div id="resultadosBarra" class="lab-search-results" role="listbox" aria-label="Productos encontrados" hidden></div><span id="estadoBusquedaBarra" class="visually-hidden" role="status" aria-live="polite"></span></form>
+ <div class="gamer-nav-actions"><a class="nav-link gamer-cart" data-page="carrito" href="carrito.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.5 12h11L21 7H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span>Carrito</span><span id="contadorCarrito" class="gamer-count" aria-label="Productos en el carrito">0</span></a>
+ <a class="nav-link d-none gamer-admin-link" data-admin-link data-page="admin" href="admin.html" aria-label="Panel administrativo" title="Panel administrativo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4 8 9 8 9s8-5 8-9V6z"/><path d="m8 12 3 3 5-6"/></svg></a>
+ <button type="button" class="btn btn-outline-light btn-sm" id="btnLoginPlaceholder">Ingresar</button>
+ <div class="dropdown d-none" id="menuCuentaGamer"><button type="button" class="gamer-account dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><span class="gamer-account-mark" aria-hidden="true">GL</span><span id="nombreCuentaBarra">Mi cuenta</span></button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="perfil.html">Mi perfil y pedidos</a></li><li><hr class="dropdown-divider"></li><li><button class="dropdown-item" type="button" id="cerrarSesionMenu">Cerrar sesión</button></li></ul></div>
+ </div></div></div></nav>
     <main class="flex-grow-1 admin-main">
         <div class="container py-5">
             <div class="text-center py-5" id="estadoAdmin" role="status">
                 <div class="spinner-border text-primary mb-3" aria-hidden="true"></div>
                 <p class="text-secondary">Verificando permisos de acceso...</p>
             </div>
-            <div class="d-none" id="contenidoAdmin">
-                <section class="admin-hero overflow-hidden mb-4">
-                    <div class="row g-0 align-items-stretch">
-                        <div class="col-lg-5 d-flex align-items-center">
-                            <div class="admin-hero-copy p-4 p-md-5">
-                                <span class="admin-eyebrow">Área privada · Acceso seguro</span>
-                                <h1 class="display-5 fw-bold text-white mt-3 mb-3">Panel administrativo</h1>
-                                <p class="admin-hero-text mb-4">Supervisá el catálogo, el inventario y la actividad de
-                                    GamerLab desde un mismo lugar.</p>
-                                <div class="d-flex flex-wrap gap-2">
-                                    <span class="admin-status"><span aria-hidden="true">●</span> Sesión verificada</span>
-                                    <span class="admin-role">Administradora</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 admin-logo-stage">
-                            <div class="admin-logo-glow" aria-hidden="true"></div>
-                            <img class="admin-role-logo" src="assets/img/logo/admin-role.png"
-                                alt="Emblema de administración de GamerLab: escudo tecnológico con corona y circuitos">
-                        </div>
-                    </div>
-                </section>
-
-                <section aria-labelledby="resumenAdmin">
-                    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
-                        <div>
-                            <span class="eyebrow">Vista general</span>
-                            <h2 class="h3 mb-0" id="resumenAdmin">Centro de control</h2>
-                        </div>
-                        <span class="text-secondary small">GamerLab · Administración</span>
-                    </div>
-
-                    <div class="row g-3 mb-4">
+            <div class="d-none" id="contenidoAdmin"><section class="admin-workspace-heading"><div><span class="eyebrow">GAMERLAB / ADMINISTRACIÓN</span><h1>Centro de control</h1><p>Productos, pedidos y comunidad en un mismo espacio.</p></div><img src="assets/img/logo/admin-role.png" alt="" width="86" height="86"></section><div class="admin-tabs" role="tablist" aria-label="Secciones de administración"><button class="nav-link active" id="tab-resumen" data-bs-toggle="pill" data-bs-target="#panel-resumen" type="button" role="tab" aria-controls="panel-resumen" aria-selected="true">Resumen</button><button class="nav-link " id="tab-productos" data-bs-toggle="pill" data-bs-target="#panel-productos" type="button" role="tab" aria-controls="panel-productos" aria-selected="false">Productos</button><button class="nav-link " id="tab-pedidos" data-bs-toggle="pill" data-bs-target="#panel-pedidos" type="button" role="tab" aria-controls="panel-pedidos" aria-selected="false">Pedidos</button><button class="nav-link " id="tab-usuarios" data-bs-toggle="pill" data-bs-target="#panel-usuarios" type="button" role="tab" aria-controls="panel-usuarios" aria-selected="false">Usuarios</button><button class="nav-link " id="tab-comentarios" data-bs-toggle="pill" data-bs-target="#panel-comentarios" type="button" role="tab" aria-controls="panel-comentarios" aria-selected="false">Comentarios</button></div><div class="tab-content admin-workspace"><div class="tab-pane fade show active" id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" tabindex="0"><div class="admin-section-intro"><div><span class="eyebrow">Vista general</span><h2>Tu tienda, de un vistazo</h2></div><a class="btn btn-outline-primary btn-sm" href="index.html">Ver tienda ↗</a></div><div class="row g-3 mb-4">
                         <div class="col-sm-6 col-xl-3">
                             <article class="admin-summary-card h-100">
                                 <span class="admin-card-icon icon-cyan" aria-hidden="true">▦</span>
                                 <span class="admin-card-label">Productos</span>
-                                <strong>Catálogo</strong>
+                                <strong id="estadisticaProductos">0</strong>
                                 <small>Consulta los artículos publicados.</small>
                             </article>
                         </div>
@@ -84,95 +40,31 @@
                             <article class="admin-summary-card h-100">
                                 <span class="admin-card-icon icon-pink" aria-hidden="true">◇</span>
                                 <span class="admin-card-label">Inventario</span>
-                                <strong>Stock</strong>
-                                <small>Controlá existencias y disponibilidad.</small>
+                                <strong id="estadisticaStock">0</strong>
+                                <small>Controla existencias y disponibilidad.</small>
                             </article>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <article class="admin-summary-card h-100">
                                 <span class="admin-card-icon icon-blue" aria-hidden="true">≡</span>
-                                <span class="admin-card-label">Actividad</span>
-                                <strong>Pedidos</strong>
-                                <small>Revisá las compras registradas.</small>
+                                <span class="admin-card-label">Pedidos</span>
+                                <strong id="estadisticaPedidos">0</strong>
+                                <small>Revisa las compras registradas.</small>
                             </article>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <article class="admin-summary-card h-100">
                                 <span class="admin-card-icon icon-green" aria-hidden="true">✓</span>
-                                <span class="admin-card-label">Seguridad</span>
-                                <strong>Acceso protegido</strong>
-                                <small>Tu rol fue validado correctamente.</small>
+                                <span class="admin-card-label">Usuarios</span>
+                                <strong id="estadisticaUsuarios">0</strong>
+                                <small>Usuarios registrados en la tienda.</small>
                             </article>
                         </div>
                     </div>
 
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <section class="admin-panel h-100" aria-labelledby="areasGestion">
-                                <div class="admin-panel-heading">
-                                    <div>
-                                        <span class="eyebrow">Administración</span>
-                                        <h2 class="h4 mb-0" id="areasGestion">Áreas de gestión</h2>
-                                    </div>
-                                    <span class="badge rounded-pill admin-online-badge">Sistema activo</span>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table admin-table align-middle mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Área</th>
-                                                <th scope="col">Control disponible</th>
-                                                <th scope="col">Estado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Catálogo</strong><small>Productos de la tienda</small></td>
-                                                <td>Consulta y organización</td>
-                                                <td><span class="admin-table-status">Visible</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Inventario</strong><small>Stock y disponibilidad</small></td>
-                                                <td>Seguimiento de existencias</td>
-                                                <td><span class="admin-table-status">Protegido</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Pedidos</strong><small>Actividad de compras</small></td>
-                                                <td>Consulta administrativa</td>
-                                                <td><span class="admin-table-status">Protegido</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="col-lg-4">
-                            <aside class="admin-panel h-100" aria-labelledby="accesosRapidos">
-                                <span class="eyebrow">Navegación</span>
-                                <h2 class="h4 mb-4" id="accesosRapidos">Accesos rápidos</h2>
-                                <div class="d-grid gap-3">
-                                    <a class="admin-action" href="catalogo.html">
-                                        <span><strong>Ver catálogo</strong><small>Revisar productos publicados</small></span>
-                                        <span aria-hidden="true">→</span>
-                                    </a>
-                                    <a class="admin-action" href="perfil.html">
-                                        <span><strong>Mi perfil</strong><small>Consultar datos de la cuenta</small></span>
-                                        <span aria-hidden="true">→</span>
-                                    </a>
-                                    <a class="admin-action" href="index.html">
-                                        <span><strong>Ver tienda</strong><small>Ir a la página principal</small></span>
-                                        <span aria-hidden="true">→</span>
-                                    </a>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="mt-4" aria-labelledby="gestionProductos">
+                    <div class="admin-shortcuts"><button type="button" class="admin-shortcut" data-abrir-panel="productos"><span class="eyebrow">Catálogo e inventario</span><strong>Productos</strong><span class="text-secondary small">Crear y editar productos, stock y disponibilidad.</span><span class="shortcut-arrow" aria-hidden="true">↗</span></button><button type="button" class="admin-shortcut" data-abrir-panel="pedidos"><span class="eyebrow">Compras y entregas</span><strong>Pedidos</strong><span class="text-secondary small">Consultar compras y actualizar su estado.</span><span class="shortcut-arrow" aria-hidden="true">↗</span></button><button type="button" class="admin-shortcut" data-abrir-panel="usuarios"><span class="eyebrow">Cuentas de la tienda</span><strong>Usuarios</strong><span class="text-secondary small">Consultar cuentas y gestionar su disponibilidad.</span><span class="shortcut-arrow" aria-hidden="true">↗</span></button><button type="button" class="admin-shortcut" data-abrir-panel="comentarios"><span class="eyebrow">Opiniones de productos</span><strong>Comentarios</strong><span class="text-secondary small">Revisar y moderar los comentarios publicados.</span><span class="shortcut-arrow" aria-hidden="true">↗</span></button></div></div><div class="tab-pane fade " id="panel-productos" role="tabpanel" aria-labelledby="tab-productos" tabindex="0"><section class="mt-4" aria-labelledby="gestionProductos">
                     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
                         <div>
-                            <span class="eyebrow">Catálogo de Firestore</span>
                             <h2 class="h3 mb-0" id="gestionProductos">Gestión de productos</h2>
                         </div>
                         <a class="btn btn-outline-primary btn-sm" href="catalogo.html">Comprobar en el catálogo</a>
@@ -214,7 +106,7 @@
                                 <span class="eyebrow">Alta y edición</span>
                                 <h3 class="h4 mb-1" id="formProductoTitulo">Crear producto</h3>
                                 <p class="text-secondary small mb-4" id="ayudaFormProducto">
-                                    Completá los datos para agregar un producto al catálogo.
+                                    Completa los datos para agregar un producto al catálogo.
                                 </p>
 
                                 <form id="formProducto" novalidate>
@@ -223,39 +115,62 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="productoNombre">Nombre</label>
                                         <input class="form-control" id="productoNombre" type="text" maxlength="80" required>
-                                        <div class="invalid-feedback">Ingresá el nombre del producto.</div>
+                                        <div class="invalid-feedback">Ingresa el nombre del producto.</div>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label" for="productoCategoria">Categoría</label>
                                         <input class="form-control" id="productoCategoria" type="text" maxlength="50" required>
-                                        <div class="invalid-feedback">Ingresá una categoría.</div>
+                                        <div class="invalid-feedback">Ingresa una categoría.</div>
                                     </div>
 
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-6">
                                             <label class="form-label" for="productoPrecio">Precio (USD)</label>
                                             <input class="form-control" id="productoPrecio" type="number" min="0" step="0.01" required>
-                                            <div class="invalid-feedback">Ingresá un precio válido.</div>
+                                            <div class="invalid-feedback">Ingresa un precio válido.</div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="productoStock">Stock</label>
                                             <input class="form-control" id="productoStock" type="number" min="0" step="1" required>
-                                            <div class="invalid-feedback">Ingresá un stock válido.</div>
+                                            <div class="invalid-feedback">Ingresa un stock válido.</div>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label" for="productoDescripcion">Descripción</label>
                                         <textarea class="form-control" id="productoDescripcion" rows="3" maxlength="300" required></textarea>
-                                        <div class="invalid-feedback">Ingresá una descripción.</div>
+                                        <div class="invalid-feedback">Ingresa una descripción.</div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="productoImagen">Ruta o URL de la imagen</label>
+                                        <label class="form-label" for="productoImagen">Imagen 1 (portada)</label>
                                         <input class="form-control" id="productoImagen" type="text" maxlength="500"
                                             placeholder="assets/img/productos/ejemplo.png" required>
-                                        <div class="invalid-feedback">Ingresá la ruta o URL de una imagen.</div>
+                                        <div class="form-text">Esta imagen se usa como portada en el catálogo.</div>
+                                        <div class="invalid-feedback">Ingresa la ruta o URL de la imagen principal.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="productoImagen2">Imagen 2</label>
+                                        <input class="form-control" id="productoImagen2" type="text" maxlength="500"
+                                            placeholder="assets/img/productos/ejemplo-2.png" required>
+                                        <div class="invalid-feedback">Ingresa la segunda imagen del carrusel.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="productoImagen3">Imagen 3</label>
+                                        <input class="form-control" id="productoImagen3" type="text" maxlength="500"
+                                            placeholder="assets/img/productos/ejemplo-3.png" required>
+                                        <div class="invalid-feedback">Ingresa la tercera imagen del carrusel.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="productoCaracteristicas">Características técnicas</label>
+                                        <textarea class="form-control" id="productoCaracteristicas" rows="5" maxlength="600"
+                                            placeholder="Una característica por línea" required></textarea>
+                                        <div class="form-text">Escribe una característica por línea. Se mostrarán como una lista en el detalle.</div>
+                                        <div class="invalid-feedback">Ingresa al menos una característica técnica.</div>
                                     </div>
 
                                     <div class="form-check form-switch mb-4">
@@ -273,8 +188,38 @@
                             </section>
                         </div>
                     </div>
-                </section>
-            </div>
+                </section></div><div class="tab-pane fade " id="panel-pedidos" role="tabpanel" aria-labelledby="tab-pedidos" tabindex="0"><section class="admin-panel" aria-labelledby="pedidosAdminTitulo">
+                                <div class="admin-panel-heading">
+                                    <div><span class="eyebrow">Ventas</span><h3 class="h4 mb-0" id="pedidosAdminTitulo">Pedidos</h3></div>
+                                    <span class="badge rounded-pill text-bg-light" id="cantidadPedidosAdmin">0 pedidos</span>
+                                </div>
+                                <p class="text-secondary" id="estadoPedidosAdmin" role="status">Cargando pedidos...</p>
+                                <div class="table-responsive d-none" id="contenedorPedidosAdmin">
+                                    <table class="table admin-table align-middle mb-0">
+                                        <thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th></tr></thead>
+                                        <tbody id="listaPedidosAdmin"></tbody>
+                                    </table>
+                                </div>
+                            </section></div><div class="tab-pane fade " id="panel-usuarios" role="tabpanel" aria-labelledby="tab-usuarios" tabindex="0"><section class="admin-panel h-100" aria-labelledby="usuariosAdminTitulo">
+                                <div class="admin-panel-heading">
+                                    <div><span class="eyebrow">Cuentas</span><h3 class="h4 mb-0" id="usuariosAdminTitulo">Usuarios</h3></div>
+                                    <span class="badge rounded-pill text-bg-light" id="cantidadUsuariosAdmin">0 usuarios</span>
+                                </div>
+                                <p class="text-secondary" id="estadoUsuariosAdmin" role="status">Cargando usuarios...</p>
+                                <div class="table-responsive d-none" id="contenedorUsuariosAdmin">
+                                    <table class="table admin-table align-middle mb-0">
+                                        <thead><tr><th>Usuario</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+                                        <tbody id="listaUsuariosAdmin"></tbody>
+                                    </table>
+                                </div>
+                            </section></div><div class="tab-pane fade " id="panel-comentarios" role="tabpanel" aria-labelledby="tab-comentarios" tabindex="0"><section class="admin-panel h-100" aria-labelledby="opinionesAdminTitulo">
+                                <div class="admin-panel-heading">
+                                    <div><span class="eyebrow">Moderación</span><h3 class="h4 mb-0" id="opinionesAdminTitulo">Comentarios</h3></div>
+                                    <span class="badge rounded-pill text-bg-light" id="cantidadOpinionesAdmin">0 comentarios</span>
+                                </div>
+                                <p class="text-secondary" id="estadoOpinionesAdmin" role="status">Cargando comentarios...</p>
+                                <div class="d-grid gap-3 d-none" id="listaOpinionesAdmin"></div>
+                            </section></div></div></div>
         </div>
     </main>
     <footer class="footer py-4 mt-auto">
@@ -290,7 +235,10 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/admin-navegacion.js"></script>
     <script src="js/base.js"></script>
+    <script type="module" src="js/buscador.js"></script>
+    <script type="module" src="js/carrito.js"></script>
     <script type="module" src="js/firebase/auth.js"></script>
     <script type="module" src="js/firebase/admin.js"></script>
 </body>

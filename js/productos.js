@@ -1,3 +1,4 @@
+import { imagenSegura } from "./seguridad.js";
 import { db } from "./firebase/config.js";
 
 import {
@@ -144,10 +145,9 @@ async function cargarProductos() {
     try {
         const resultado = await getDocs(collection(db, "productos"));
 
-        window.productos = resultado.docs.map((documento) => ({
-            id: documento.id,
-            ...documento.data()
-        }));
+        window.productos = resultado.docs
+            .map((documento) => { const p = documento.data(); return { ...p, id: documento.id, nombre: String(p.nombre || "Producto"), categoria: String(p.categoria || "Sin categoría"), descripcion: String(p.descripcion || ""), precio: Number(p.precio), stock: Number(p.stock), imagen: imagenSegura(p.imagen), imagenes: (Array.isArray(p.imagenes) && p.imagenes.length ? p.imagenes : [p.imagen]).map(imagenSegura), caracteristicas: Array.isArray(p.caracteristicas) ? p.caracteristicas : [] }; })
+            .filter((producto) => producto.disponible !== false && Number(producto.stock) > 0);
 
         window.estadoProductos = {
             error: null,
@@ -159,11 +159,11 @@ async function cargarProductos() {
         }));
     } catch (error) {
         console.error(error);
-        window.productos = productosLocales;
+        window.productos = [];
 
         window.estadoProductos = {
             error: "No se pudieron consultar los productos en Firestore.",
-            desdeRespaldo: true
+            desdeRespaldo: false
         };
 
         window.dispatchEvent(new CustomEvent("productosCargados", {
@@ -173,4 +173,5 @@ async function cargarProductos() {
 }
 
 
+window.recargarProductos = cargarProductos;
 cargarProductos();

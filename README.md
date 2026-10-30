@@ -1,249 +1,152 @@
 # GamerLab
-## Estudiante
 
-Fernanda Gómez
+GamerLab es una tienda online de equipos y periféricos para videojuegos, estudio y creación de contenido. Fue desarrollada por **Fernanda Gómez** como proyecto académico de Desarrollo Web.
 
-## Descripción
+La aplicación permite explorar productos, crear una cuenta, preparar un carrito y realizar una compra simulada. Incluye un panel privado para administrar el catálogo, los pedidos, los usuarios y los comentarios.
 
-GamerLab es una tienda online especializada en computadoras gamer, componentes y periféricos. Su propósito es ofrecer soluciones para quienes desean comprar, actualizar o armar un equipo según sus necesidades.
+## Funcionalidades
 
-La propuesta combina rendimiento, tecnología y personalización en una experiencia de navegación clara, moderna y profesional.
+### Tienda y catálogo
 
+- Inicio con identidad visual propia, accesos por categoría y productos destacados consultados desde Firebase.
+- Catálogo de **15 productos**, organizado en Equipos, Periféricos, Simulación y Mobiliario.
+- Productos obtenidos desde Cloud Firestore, con descripción, precio en USD, stock y disponibilidad.
+- Buscador en la barra superior con vista previa de imagen, nombre y precio, navegación por teclado y acceso al producto o a los resultados del catálogo.
+- Búsqueda por nombre sin distinción de tildes, filtros por categoría, ordenamiento por nombre o precio y contador de resultados.
+- Detalle con tres imágenes por producto, características técnicas y productos relacionados.
+- Valoraciones de una a cinco estrellas, promedio y comentarios guardados en Firestore.
+- Diseño adaptable a computadoras, tablets y teléfonos.
 
-## Público objetivo
+### Cuentas y perfil
 
-Jóvenes y adultos interesados en armar, actualizar o comprar computadoras y periféricos para videojuegos, estudio, streaming y creación digital.
+- Registro, inicio y cierre de sesión con correo y contraseña mediante Firebase Authentication.
+- Registro con confirmación de contraseña y un mínimo de seis caracteres.
+- Menú de cuenta en la barra superior con acceso al perfil y cierre de sesión.
+- Perfil con nombre, correo, fecha de registro, tipo de cuenta e historial personal de pedidos.
+- Roles `cliente` y `administrador`. Las cuentas nuevas reciben el rol `cliente`.
 
+### Carrito y compras
 
-## Categorías de productos
+- Agregar productos desde el inicio, el catálogo o el detalle.
+- Modificar cantidades y quitar productos, con comprobación de stock.
+- Carrito persistente en LocalStorage, separado por cuenta y visitante.
+- Acceso al inicio de sesión cuando un visitante intenta comprar y recuperación de su selección al continuar la compra.
+- Resumen con subtotal, envío y total. El envío simulado cuesta USD 20 y es gratuito en compras de USD 500 o más.
+- Hasta ocho productos distintos por pedido.
+- Confirmación mediante una transacción de Firestore que comprueba precios y stock, registra el pedido y descuenta las existencias en una misma operación.
+- Vaciado del carrito después de registrar correctamente la compra e historial de pedidos en el perfil.
 
-- PC gamer
-- Componentes
-- Monitores
-- Teclados y mouse
-- Audio
-- Almacenamiento
-- Accesorios
+### Administración
 
+El panel está reservado a cuentas administradoras activas. Se organiza en cinco pestañas:
 
-## Tecnologías utilizadas
+- **Resumen:** estadísticas de productos disponibles, inventario, pedidos y usuarios, con accesos directos a cada área.
+- **Productos:** creación y edición de nombre, categoría, descripción, precio, stock, disponibilidad, tres imágenes y características. Permite activar o desactivar productos.
+- **Pedidos:** consulta de compras y actualización de su estado.
+- **Usuarios:** consulta de cuentas y activación o desactivación. El administrador no puede desactivar su propia cuenta desde el panel.
+- **Comentarios:** consulta y moderación mediante ocultamiento reversible.
 
-- HTML5
-- CSS3
-- Bootstrap
-- JavaScript
-- LocalStorage
-- Git
-- GitHub
+Los productos desactivados o sin stock no se muestran en el catálogo público. La desactivación de una cuenta restringe sus operaciones en Firestore, pero conserva su registro en Firebase Authentication.
 
-## Estructura general del proyecto
+## Tecnologías
 
+- HTML5 y CSS3.
+- JavaScript con módulos ES.
+- Bootstrap 5.
+- Firebase Authentication para las cuentas y las sesiones.
+- Cloud Firestore para productos, usuarios, pedidos y opiniones.
+- LocalStorage para la persistencia del carrito.
+- Git y GitHub para el control de versiones.
+- GitHub Pages para la publicación del sitio.
+
+## Ejecución local
+
+1. Descargar o clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/Mfgj19/gamerlab.git
+   ```
+
+2. Abrir la carpeta `gamerlab` en Visual Studio Code.
+3. Iniciar un servidor local, por ejemplo con la extensión **Live Server**, y abrir `index.html` desde ese servidor.
+4. Mantener conexión a internet para cargar Firebase, Bootstrap, las tipografías y los datos del catálogo.
+
+No se necesita instalar paquetes ni ejecutar una compilación. Es necesario utilizar un servidor local porque el proyecto carga módulos JavaScript.
+
+Para conservar el carrito durante las pruebas, utilizar la misma dirección y puerto: el almacenamiento pertenece al origen del sitio y al navegador utilizado.
+
+## Firebase y datos
+
+La configuración se encuentra en `js/firebase/config.js` y corresponde al proyecto Firebase `gamerlab-1a163`.
+
+| Colección | Contenido |
+| --- | --- |
+| `productos` | Nombre, categoría, descripción, precio, stock, disponibilidad, imágenes y características. |
+| `usuarios` | Nombre, correo, rol, fecha de registro y estado de la cuenta, asociados al UID de Authentication. |
+| `pedidos` | Usuario, productos, cantidades, importes, envío, fecha y estado. |
+| `opiniones` | Producto, usuario, puntuación, comentario y visibilidad. |
+
+El catálogo se consulta desde Firestore. Si falla la conexión, la aplicación informa el problema y no sustituye los datos por un catálogo local.
+
+Las reglas de seguridad están publicadas en Firebase Console. Aplican permisos según la sesión, el rol y el estado de la cuenta: cada cliente consulta sus propios datos y pedidos; la gestión de la tienda queda reservada a administradores.
+
+Para evaluar el panel se necesita una cuenta con el rol `administrador` asignado en Firestore. El formulario de registro público solo crea cuentas de cliente.
+
+Las imágenes están almacenadas en `assets/img/productos/`; Firestore guarda sus rutas. El panel permite indicar rutas o direcciones HTTPS, pero no sube archivos a Firebase Storage.
+
+La ejecución local utiliza la misma base configurada. Las altas y modificaciones de productos, pedidos, usuarios y opiniones se guardan en ese proyecto Firebase.
+
+## Recorrido del proyecto
+
+1. Explorar las categorías del inicio o buscar un producto en la barra superior.
+2. Abrir su detalle, recorrer las imágenes y consultar sus características.
+3. Crear una cuenta o iniciar sesión desde `perfil.html`.
+4. Agregar productos con stock al carrito, ajustar cantidades y confirmar la compra simulada.
+5. Consultar el pedido desde el perfil y publicar una valoración o comentario desde el detalle del producto.
+6. Con una cuenta administradora, acceder al panel y recorrer sus cinco secciones.
+
+## Estructura del proyecto
 
 ```text
 gamerlab/
-├── index.html
-├── catalogo.html
-├── producto.html
-├── carrito.html
-├── perfil.html
-├── admin.html
+├── index.html                  # Inicio y categorías
+├── catalogo.html               # Catálogo, búsqueda y filtros
+├── producto.html               # Detalle, galería y opiniones
+├── carrito.html                # Selección y confirmación de compra
+├── perfil.html                 # Acceso, registro, cuenta y pedidos
+├── admin.html                  # Panel administrativo
 ├── css/
-│   └── styles.css
+│   └── styles.css              # Estilos y adaptación a pantallas
 ├── js/
-│   ├── base.js
-│   ├── carrito.js
-│   ├── catalogo.js
-│   ├── producto.js
-│   └── productos.js
+│   ├── base.js                 # Comportamiento general
+│   ├── inicio.js               # Productos destacados
+│   ├── buscador.js             # Búsqueda con vista previa
+│   ├── catalogo.js             # Filtros y ordenamiento
+│   ├── productos.js            # Consulta de productos a Firestore
+│   ├── tarjetas.js             # Tarjetas compartidas de productos
+│   ├── producto.js             # Detalle, valoraciones y comentarios
+│   ├── carrito.js              # Carrito por cuenta y visitante
+│   ├── seguridad.js            # Validación de datos y contenido
+│   ├── admin-navegacion.js     # Accesos directos del panel
+│   └── firebase/
+│       ├── config.js           # Conexiones de Firebase
+│       ├── auth.js             # Registro, sesión y permisos
+│       ├── pedidos.js          # Compra e historial de pedidos
+│       └── admin.js            # Gestión administrativa
 ├── assets/
-│   └── img/
-│       ├── hero/
-│       ├── logo/
-│       ├── productos/
-│       └── beneficios/
-├── README.md
-└── .gitignore
+│   └── img/                    # Logos, imágenes y productos
+└── README.md
 ```
-## Instrucciones de ejecución
 
-1. Descargar o clonar el repositorio.
-2. Abrir la carpeta del proyecto en Visual Studio Code.
-3. Abrir el archivo `index.html` en el navegador.
-4. También puede utilizarse la extensión Live Server para visualizar los cambios durante el desarrollo.
+## Identidad visual
 
-## Funcionalidades desarrolladas en el Sprint 1
+GamerLab utiliza una estética inspirada en hardware y espacios de juego. Combina azul petróleo (`#164E63`), cian (`#0891B2`), azul oscuro (`#172554`) y magenta (`#DB2777`), con fondos claros y oscuros. Las tipografías son **Rajdhani** para títulos e **Inter** para textos.
 
-- Identidad visual propia.
-- Página de inicio completamente personalizada.
-- Barra de navegación responsive.
-- Logotipo enlazado a la página de inicio.
-- Funcionalidades opcionales incorporadas: ordenamiento de productos y cantidad de resultados encontrados.
-- Botón de inicio de sesión con aviso de funcionalidad correspondiente al Sprint 3.
-- Sección principal o hero personalizada.
-- Seis productos destacados escritos directamente en HTML.
-- Tarjetas de productos adaptables y coherentes con la identidad visual.
-- Sección de beneficios con imágenes, títulos y descripciones.
-- Pie de página con enlaces, información de contacto y aclaración académica.
-- Navegación entre las páginas principales.
-- Diseño adaptable a dispositivos móviles, tablets y equipos de escritorio.
-- Condiciones básicas de accesibilidad.
-- Uso de HTML semántico.
-- Páginas futuras enlazadas y señaladas como funcionalidades en desarrollo.
+## Alcance de la simulación
 
-## Sprint 2
+El proyecto tiene fines académicos. La compra no procesa pagos ni solicita datos bancarios. Los pedidos sí se registran en Firestore y modifican el stock. Los precios, las características y las imágenes representan el catálogo de la tienda simulada.
 
-### Avance al 23/08 - Productos y catálogo dinámico
+## Enlaces
 
-- Se creó un arreglo de productos en JavaScript.
-- Cada producto está representado mediante un objeto.
-- Los productos incluyen identificador, nombre, descripción, categoría, precio, stock e imagen.
-- El catálogo se genera dinámicamente desde JavaScript.
-- Las tarjetas se insertan en `catalogo.html` mediante manipulación del DOM.
-- Se utiliza una función `mostrarProductos(productos)` para recorrer y mostrar el catálogo.
-- La lógica del catálogo se organizó en los archivos `productos.js` y `catalogo.js`.
-
-### Avance al 30/08 - Búsqueda, filtros y eventos
-
-- Se incorporó un campo de búsqueda de productos por nombre.
-- Se agregó un selector para filtrar los productos por categoría.
-- Se combinaron la búsqueda por nombre y el filtro por categoría.
-- Se utilizaron eventos `input` y `change` para actualizar el catálogo.
-- Los productos se filtran dinámicamente mediante JavaScript.
-- Se muestra un mensaje cuando no existen productos que coincidan con la búsqueda y el filtro seleccionados.
-- Al limpiar la búsqueda y seleccionar todas las categorías, se vuelve a mostrar el catálogo completo.
-
-### Avance al 06/09 - Detalle dinámico del producto
-
-- Se incorporó la navegación desde las tarjetas del catálogo hacia `producto.html`.
-- Cada producto envía su identificador mediante la URL.
-- Se utiliza `URLSearchParams` para obtener el identificador del producto desde la URL.
-- Se utiliza `find()` para buscar el producto correspondiente dentro del arreglo.
-- Se creó `producto.js` para manejar la lógica del detalle del producto.
-- La página `producto.html` muestra dinámicamente la imagen, categoría, nombre, descripción, precio y stock del producto seleccionado.
-- Se utiliza una única página `producto.html` para mostrar los diferentes productos.
-- Se muestra un mensaje cuando el identificador recibido no corresponde a ningún producto existente.
-
-### Avance al 13/09 - Carrito y LocalStorage
-
-- Se incorporó la funcionalidad para agregar productos al carrito desde el catálogo y desde el detalle del producto.
-- El carrito permite aumentar y disminuir las cantidades de los productos.
-- Se controla que la cantidad seleccionada no supere el stock disponible.
-- Se pueden eliminar productos del carrito.
-- Se calculan dinámicamente los subtotales de cada producto y el total de la compra.
-- El carrito se conserva al recargar la página mediante LocalStorage.
-- En LocalStorage se almacena el identificador del producto y la cantidad seleccionada.
-- Se muestra un mensaje cuando el carrito está vacío.
-- La lógica del carrito se organizó en el archivo `carrito.js`.
-
-### Funcionalidades opcionales incorporadas
-
-- Se agregó la posibilidad de ordenar los productos por precio de menor a mayor y de mayor a menor.
-- Se agregó la posibilidad de ordenar los productos por nombre de A-Z y de Z-A.
-- El ordenamiento puede combinarse con la búsqueda por nombre y el filtro por categoría.
-- Se muestra dinámicamente la cantidad de productos encontrados.
-- Se incorporó un botón para limpiar la búsqueda, los filtros y el ordenamiento del catálogo.
-- Se incorporó una galería de imágenes mediante un carrusel dinámico en el detalle de cada producto.
-- Cada producto cuenta con tres imágenes que permiten visualizarlo desde diferentes ángulos y observar distintos detalles.
-- Se incorporaron características técnicas adicionales para cada producto.
-- Se agregó una sección de productos relacionados según la categoría del producto seleccionado.
-- Se incorporó un sistema de valoraciones de una a cinco estrellas.
-- Se muestra el promedio y la cantidad de valoraciones recibidas por cada producto.
-- Se incorporó un sistema de comentarios para cada producto.
-- Las valoraciones y los comentarios se conservan mediante LocalStorage.
-- Se incorporaron mensajes mediante toast para brindar confirmación visual al agregar productos al carrito o cuando se alcanza el stock disponible.
-- Se agregó un costo de envío simulado al resumen del carrito.
-- Las compras de USD 500 o más cuentan con envío gratuito dentro de la simulación.
-
-### Mejoras realizadas a partir de la devolución del Sprint 2
-
-- Se corrigió el acceso al detalle de los productos destacados desde la página de inicio.
-- Se eliminó la opción "Producto" del menú de navegación, ya que el detalle se accede desde los productos correspondientes.
-- Se agregó una opción para limpiar los filtros del catálogo.
-- Se incorporaron mensajes visuales al agregar productos al carrito y al alcanzar el stock disponible.
-- Se agregó acceso al detalle de cada producto directamente desde el carrito.
-- Se incorporó la opción "Seguir comprando" desde el carrito.
-- Se agregó un contador dinámico de productos en el carrito dentro de la barra de navegación.
-- El contador del carrito se mantiene actualizado al agregar, aumentar, disminuir o eliminar productos y conserva su valor al navegar entre las distintas páginas.
-
-## Funcionalidades pendientes
-
-- Panel administrativo.
-- Operaciones CRUD.
-- Publicación final en GitHub Pages.
-
-## Decisiones de diseño
-
-La identidad visual de GamerLab busca transmitir precisión, potencia y experimentación tecnológica. La estética se inspira en componentes, circuitos, placas y configuraciones gamer, manteniendo una interfaz limpia y profesional.
-
-### Paleta de colores
-
-- Azul cian: `#0891B2`
-- Azul oscuro: `#172554`
-- Magenta de acento: `#DB2777`
-- Fondo oscuro: `#111827`
-- Fondo claro: `#F1F5F9`
-- Texto principal: `#0F172A`
-
-### Tipografías
-
-- Títulos: Rajdhani
-- Textos: Inter
-
-### Eslogan
-
-> Construí la potencia que necesitás.
-
-## Diseño responsive
-
-La interfaz fue revisada en los siguientes tamaños aproximados:
-- Teléfono: 375 px
-- Tablet: 768 px
-- Escritorio: 1366 px
-
-
-## Estado del proyecto
-
-Sprint 1 finalizado.
-
-Sprint 2 finalizado.
-
-Sprint 3 finalizado.
-
-- Avance al 20/09 completado: configuración de Firebase, registro e inicio de sesión con correo y contraseña, persistencia y cierre de sesión, datos de usuario en Firestore, navbar según el estado de autenticación y perfil protegido.
-- La configuración de Firebase se encuentra en `js/firebase/config.js` y la autenticación en `js/firebase/auth.js`.
-- Avance al 04/10 completado: colección `productos` en Firestore, catálogo y detalle obtenidos desde la base de datos, búsqueda, filtros, ordenamiento y validación de disponibilidad y stock antes de agregar al carrito.
-- Si la consulta de productos falla, la aplicación informa el problema y utiliza el catálogo local como respaldo.
-- Avance al 11/10 completado: confirmación de compras para usuarios autenticados, pedidos guardados en Firestore, actualización de stock mediante transacciones e historial de pedidos en el perfil.
-- Los comentarios y las valoraciones se guardan como opiniones en Firestore y quedan asociados al producto y al usuario autenticado.
-- La lógica de autenticación se encuentra en `js/firebase/auth.js`, la de compras y pedidos en `js/firebase/pedidos.js`, y la consulta y publicación de opiniones en `js/producto.js`.
-- Al confirmar una compra se vuelven a consultar los productos, se valida el stock, se registra el pedido y se descuenta el stock en una única transacción. El carrito se vacía solamente si la operación termina correctamente.
-
-Sprint 4 en desarrollo.
-
-- Corte al 18/10 completado: cada usuario posee un campo `rol` en Firestore y las cuentas nuevas se registran automáticamente como `cliente`.
-- El rol `administrador` se asigna manualmente desde Firestore a una cuenta de prueba; el formulario público no permite elegirlo.
-- El enlace al panel administrativo se muestra únicamente a usuarios con rol `administrador`.
-- `admin.html` verifica la sesión y el rol antes de mostrar su contenido. Los usuarios sin permisos son redirigidos al perfil con un mensaje explicativo.
-
-### Configuración de la cuenta administradora de prueba
-
-1. Crear una cuenta desde `perfil.html`.
-2. Abrir Firestore y entrar a la colección `usuarios`.
-3. Buscar el documento cuyo identificador coincide con el UID de esa cuenta.
-4. Cambiar el campo `rol` de `cliente` a `administrador`.
-5. Cerrar la sesión y volver a iniciarla para comprobar el acceso administrativo.
-
-## Usuario de prueba
-
-Cuenta creada exclusivamente para evaluar el proyecto:
-
-- Correo: `ferprueba@gmail.com`
-- Contraseña: `pruebafer`
-
-## Enlace al repositorio
-
-https://github.com/Mfgj19/gamerlab
-
-## Enlace a GitHub Pages
-
-Se incorporará cuando la aplicación sea publicada.
+- [Visitar GamerLab](https://mfgj19.github.io/gamerlab/)
+- [Repositorio en GitHub](https://github.com/Mfgj19/gamerlab)
